@@ -6,7 +6,7 @@ import java.io.PrintStream;
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
 
-/**
+/**.
  * Test
  *
  * @author agolovatyuk
@@ -14,7 +14,7 @@ import static org.junit.Assert.assertThat;
  * @since 0.1
  */
 public class CalculateTest {
-    /**
+    /**.
      * Test add
      */
     @Test
@@ -22,6 +22,6 @@ public class CalculateTest {
         ByteArrayOutputStream out = new ByteArrayOutputStream();
         System.setOut(new PrintStream(out));
         Calculate.main(null);
-        assertThat(out.toString(), is(String.format("Hello World%s",System.getProperty("line.separator"))));
+        assertThat(out.toString(), is(String.format("Hello World%s", System.getProperty("line.separator"))));
     }
 }
