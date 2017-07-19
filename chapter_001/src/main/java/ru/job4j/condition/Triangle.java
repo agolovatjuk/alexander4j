@@ -33,6 +33,6 @@ public class Triangle {
         int x1, x2, x3, y1, y2, y3;
         x1 = a.getX(); x2 = b.getX(); x3 = c.getX();
         y1 = a.getY(); y2 = b.getY(); y3 = c.getY();
-        return 0.5 * (Math.abs((x1 - x3) * (y2 - y3)) - Math.abs((x2 - x3) * (y1 - y3)));
+        return 0.5 * Math.abs((Math.abs((x1 - x3) * (y2 - y3)) - Math.abs((x2 - x3) * (y1 - y3))));
     }
 }
