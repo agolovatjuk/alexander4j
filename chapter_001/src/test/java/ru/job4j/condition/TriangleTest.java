@@ -22,7 +22,42 @@ public class TriangleTest {
 		Point c = new Point(2, 0);
 		Triangle t = new Triangle(a, b, c);
 		double result = t.area();
-		// double expected = 2D;
 		assertThat(result, closeTo(2.0, 0.1));
+	}
+    /**.
+     * test impossible area
+     */
+	@Test
+	public void whenAreaSetTreePointsOnLineThen() {
+		Point a = new Point(0, 0);
+		Point b = new Point(4, 2);
+		Point c = new Point(-2, -1);
+		Triangle t = new Triangle(a, b, c);
+		double result = t.area();
+		assertThat(result, closeTo(-1, 0.1));
+	}
+    /**.
+     * test impossible area
+     */
+	@Test
+	public void whenAreaSetTwoPointsTheSameThen() {
+		Point a = new Point(2, -1);
+		Point b = new Point(0, 0);
+		Point c = new Point(0, 0);
+		Triangle t = new Triangle(a, b, c);
+		double result = t.area();
+		assertThat(result, closeTo(-1, 0.1));
+	}
+    /**.
+     * test impossible area
+     */
+	@Test
+	public void whenAreaSetTreePointsTheSameThen() {
+		Point a = new Point(1, 1);
+		Point b = new Point(1, 1);
+		Point c = new Point(1, 1);
+		Triangle t = new Triangle(a, b, c);
+		double result = t.area();
+		assertThat(result, closeTo(-1, 0.1));
 	}
 }
