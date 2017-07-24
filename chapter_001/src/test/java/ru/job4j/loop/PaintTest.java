@@ -30,7 +30,8 @@ public class PaintTest {
         Paint paint = new Paint();
         String result = paint.piramid(3);
         String linesep = System.getProperty("line.separator");
-        String expected = String.format("  ^  %s ^^^ %s^^^^^%s", linesep, linesep, linesep);
+        // String expected = String.format("  ^  %s ^^^ %s^^^^^%s", linesep, linesep, linesep);
+        String expected = String.format("  ^  %s ^^^ %<s^^^^^%<s", linesep);
         assertThat(result, is(expected));
    }
 }
