@@ -21,11 +21,7 @@ public class RotateArrayTest {
         int[][] expected = {{3, 1}, {4, 2}};
         RotateArray rarray = new RotateArray();
         array = rarray.rotate(array);
-        for (int i = 0; i < expected.length; i++) {
-            for (int j = 0; j < expected.length; j++) {
-                assertThat(array[i][j], is(expected[i][j]));
-            }
-        }
+        assertThat(array, is(expected));
     }
     /**.
      * Test matrix 3x3
@@ -36,10 +32,6 @@ public class RotateArrayTest {
         int[][] expected = {{7, 4, 1}, {8, 5, 2}, {9, 6, 3}};
         RotateArray rarray = new RotateArray();
         array = rarray.rotate(array);
-        for (int i = 0; i < expected.length; i++) {
-            for (int j = 0; j < expected.length; j++) {
-                assertThat(array[i][j], is(expected[i][j]));
-            }
-        }
+        assertThat(array, is(expected));
     }
 }
