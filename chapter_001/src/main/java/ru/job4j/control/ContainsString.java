@@ -27,6 +27,7 @@ public class ContainsString {
                         }
                     } else {
                         result = false;
+                        break;
                     }
                 }
             }
