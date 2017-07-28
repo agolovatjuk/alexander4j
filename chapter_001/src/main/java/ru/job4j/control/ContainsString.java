@@ -17,10 +17,10 @@ public class ContainsString {
         char[] chSub  = sub.toCharArray();
         boolean result = false;
 
-        for (int i = 0; i < origin.length() && !result;) {
-            if (chOrig[i++] == chSub[0]) {
+        for (int i = 0; i < origin.length() && !result; i++) {
+            if (chOrig[i] == chSub[0]) {
                 result = true;
-                for (int j = 1; j < sub.length() && result; i++, j++) {
+                for (int j = 0; j < sub.length() && result; i++, j++) {
                     if (i == origin.length() || chOrig[i] != chSub[j]) {
                         result = false;
                     }
