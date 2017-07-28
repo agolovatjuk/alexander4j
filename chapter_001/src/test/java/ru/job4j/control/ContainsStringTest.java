@@ -18,8 +18,9 @@ public class ContainsStringTest {
      @Test
      public void whenStringContainsThen() {
         ContainsString containsString = new ContainsString();
-        boolean expexted = true;
-        assertThat(expexted, is(containsString.contains("Привет", "иве")));
+        boolean result = containsString.contains("Привет", "иве");
+        boolean expected = true;
+        assertThat(result, is(expected));
      }
     /**.
      * test if string "Привет" not contains "abc"
@@ -27,7 +28,18 @@ public class ContainsStringTest {
      @Test
      public void whenStringNotContainsThen() {
         ContainsString containsString = new ContainsString();
-        boolean expexted = false;
-        assertThat(expexted, is(containsString.contains("Привет", "abc")));
+        boolean result = containsString.contains("Привет", "abc");
+        boolean expected = false;
+        assertThat(result, is(expected));
+     }
+    /**.
+     * test if string "Привет" not contains "вето"
+     */
+     @Test
+     public void whenStringLongNotContainsThen() {
+        ContainsString containsString = new ContainsString();
+        boolean result = containsString.contains("Привет", "вето");
+        boolean expected = false;
+        assertThat(result, is(expected));
      }
 }

@@ -21,7 +21,11 @@ public class ContainsString {
             if (chOrig[i] == chSub[0]) {
                 result = true;
                 for (int j = 1; j < sub.length() && result; j++) {
-                    if (chOrig[++i] != chSub[j]) {
+                    if (i < origin.length() - 1) {
+                        if (chOrig[++i] != chSub[j]) {
+                            result = false;
+                        }
+                    } else {
                         result = false;
                     }
                 }
