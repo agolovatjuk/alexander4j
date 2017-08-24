@@ -1,7 +1,7 @@
 /**
 * Package for calculate task.
 *
-* @author Alexander Golovatyuk (mailto:a.golovatjuk@gmail.com)
+* @author Alexander Golovatyuk
 * @version $Id$
 * @since 0.1
 */
