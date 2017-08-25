@@ -45,7 +45,7 @@ public class Tracker {
      * @param item Item
      */
     public void update(Item item) {
-        for (int i = 0; i < this.items.length; i++) {
+        for (int i = 0; i < this.pos; i++) {
             if (this.items[i] != null && this.items[i].getId().equals(item.getId())) {
                 this.items[i] = item;
                 break;
@@ -87,12 +87,12 @@ public class Tracker {
      * @return Item[]
      */
     public Item[] findByName(String key) {
-        Item[] result = new Item[2];
+        Item[] result = new Item[1];
         int n = 0;
         for (int i = 0; i < pos; i++) {
             if (this.items[i] != null && this.items[i].getName().equals(key)) {
                 if (n == result.length) {
-                    resize(result, result.length * 2);
+                    result = resize(result, result.length * 2);
                 }
                 result[n++] = this.items[i];
             }
@@ -100,16 +100,16 @@ public class Tracker {
         return result;
     }
 
-    /**
-     * .
+    /**.
      *
-     * @param result Item[]
-     * @param n      int count
+     * @param source Item[]
+     * @param n int
+     * @return Item[]
      */
-    private void resize(Item[] result, int n) {
-        Item[] tmp = new Item[n];
-        System.arraycopy(tmp, 0, result, 0, result.length);
-        result = tmp;
+    private Item[] resize(Item[] source, int n) {
+        Item[] dest = new Item[n];
+        System.arraycopy(source, 0, dest, 0, source.length);
+        return dest;
     }
 
     /**
