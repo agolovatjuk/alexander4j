@@ -149,7 +149,11 @@ class Item {
     /**.
      *
      */
-    private long create;
+    private long created;
+    /**.
+     *
+     */
+    private String[] comments;
 
     /**.
      *
@@ -160,7 +164,7 @@ class Item {
     Item(String name, String description, long create) {
         this.name = name;
         this.description = description;
-        this.create = create;
+        this.created = create;
     }
 
     /**.
@@ -199,8 +203,8 @@ class Item {
      *
      * @return long date
      */
-    public long getCreate() {
-        return this.create;
+    public long getCreated() {
+        return this.created;
     }
 }
 

@@ -20,43 +20,42 @@ public class StartUI {
     private static final int FINDBYNAME = 5;
     private static final int EXIT = 6;
 
-    private static Tracker tracker;
-    private static ConsoleInput input;
+    public static void main(String[] args) {
+        Tracker tracker = new Tracker();
+        Input input = new ConsoleInput();
 
-    StartUI() {
-        tracker = new Tracker();
-        input = new ConsoleInput();
+        StartUI ui = new StartUI();
+        ui.init(tracker, input);
     }
 
-    public static void main(String[] args) {
-        StartUI ui = new StartUI();
+    public void init(Tracker tracker, Input input) {
         int answer = 6;
         do {
-            ui.showmenu();
+            showmenu();
             answer = Integer.parseInt(input.ask("Select:"));
             switch (answer) {
                 case ADD: {
-                    ui.additem();
+                    additem(tracker, input);
                     break;
                 }
                 case SHOW: {
-                    ui.showall();
+                    showall(tracker, input);
                     break;
                 }
                 case EDIT: {
-                    ui.edititem();
+                    edititem(tracker, input);
                     break;
                 }
                 case DELETE: {
-                    ui.deleteitem();
+                    deleteitem(tracker, input);
                     break;
                 }
                 case FINDBYID: {
-                    ui.finditembyid();
+                    finditembyid(tracker, input);
                     break;
                 }
                 case FINDBYNAME: {
-                    ui.finditembyname();
+                    finditembyname(tracker, input);
                     break;
                 }
                 case EXIT: {
@@ -67,7 +66,7 @@ public class StartUI {
         System.out.println("Good bye!");
     }
 
-    private void edititem() {
+    private void edititem(Tracker tracker, Input input) {
         String id = input.ask("Enter item id:");
         Item item = tracker.findById(id);
         if (item != null) {
@@ -77,11 +76,11 @@ public class StartUI {
             newitem.setId(item.getId());
             tracker.update(newitem);
         } else {
-            System.out.println(id + ": not found");
+            System.out.printf("%s: not found\n", id);
         }
     }
 
-    private void deleteitem() {
+    private void deleteitem(Tracker tracker, Input input) {
         String id = input.ask("Enter item id:");
         Item item = tracker.findById(id);
         if (item != null) {
@@ -89,33 +88,33 @@ public class StartUI {
             System.out.println("Item deleted");
         }
         else {
-            System.out.println(id + ": not found");
+            System.out.printf("%s: not found\n", id);
         }
     }
 
-    private void finditembyid() {
+    private void finditembyid(Tracker tracker, Input input) {
         String id = input.ask("Enter item key:");
         Item r = tracker.findById(id);
         if (r != null) {
-            System.out.println(r.getId() + ", " + r.getName() + ", " + r.getDescription());
+            System.out.printf("%s, %s, %s\n", r.getId(), r.getName(), r.getDescription());
         } else {
-            System.out.println("Not found");
+            System.out.printf("%s: not found\n", id);
         }
     }
 
-    private void finditembyname() {
+    private void finditembyname(Tracker tracker, Input input) {
         String key = input.ask("Enter item name:");
         Item[] result = tracker.findByName(key);
         if (result[0] != null) {
             for (Item r: result) {
-                System.out.println(r.getId() + ", " + r.getName() + ", " + r.getDescription());
+                System.out.printf("%s, %s, %s\n", r.getId(), r.getName(), r.getDescription());
             }
         } else {
             System.out.println("Not found");
         }
     }
 
-    private void additem() {
+    private void additem(Tracker tracker, Input input) {
         String name = input.ask("Get new item name:");
         String desc = input.ask("Get description:");
         Item item = new Item(name, desc, 123L);
@@ -123,10 +122,10 @@ public class StartUI {
         System.out.println("New item added");
     }
 
-    private void showall() {
+    private void showall(Tracker tracker, Input input) {
         Item[] result = tracker.findAll();
         for (Item r: result) {
-            System.out.println(r.getId() + ", " + r.getName() + ", " + r.getDescription());
+            System.out.printf("%s, %s, %s\n", r.getId(), r.getName(), r.getDescription());
         }
     }
 
