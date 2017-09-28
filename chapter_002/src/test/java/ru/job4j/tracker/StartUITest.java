@@ -40,7 +40,7 @@ public class StartUITest {
         Item item2 = tracker.add(new Item("Name2", "desc2", 124L));
         Input input = new StubInput(new String[] {"3", item2.getId(), "6"});
         new StartUI(tracker, input).init();
-        assertThat(tracker.findById(item2.getName()), nullValue());
+        assertThat(tracker.findById(item2.getId()), nullValue());
     }
     /**.
      *
