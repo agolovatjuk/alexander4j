@@ -39,7 +39,24 @@ public class StartUI {
      *
      */
     private static final int EXIT = 6;
+    /**.
+     *
+     */
+    private Input input;
+    /**.
+     *
+     */
+    private Tracker tracker;
 
+    /**.
+     *
+     * @param tracker Tracker
+     * @param input Input
+     */
+    public StartUI(Tracker tracker, Input input) {
+        this.tracker = tracker;
+        this.input = input;
+    }
     /**.
      *
      * @param args String[]
@@ -47,39 +64,35 @@ public class StartUI {
     public static void main(String[] args) {
         Tracker tracker = new Tracker();
         Input input = new ConsoleInput();
-
-        StartUI ui = new StartUI();
-        ui.init(tracker, input);
+        StartUI ui = new StartUI(tracker, input);
+        ui.init();
     }
-
     /**.
      *
-     * @param tracker tracker
-     * @param input input
      */
-    public void init(Tracker tracker, Input input) {
+    public void init() {
         int answer = 6;
         do {
             showmenu();
             answer = Integer.parseInt(input.ask("Select:"));
             switch (answer) {
                 case ADD:
-                    additem(tracker, input);
+                    additem();
                     break;
                 case SHOW:
-                    showall(tracker, input);
+                    showall();
                     break;
                 case EDIT:
-                    edititem(tracker, input);
+                    edititem();
                     break;
                 case DELETE:
-                    deleteitem(tracker, input);
+                    deleteitem();
                     break;
                 case FINDBYID:
-                    finditembyid(tracker, input);
+                    finditembyid();
                     break;
                 case FINDBYNAME:
-                    finditembyname(tracker, input);
+                    finditembyname();
                     break;
                 case EXIT:
                     break;
@@ -93,10 +106,8 @@ public class StartUI {
 
     /**.
      *
-     * @param tracker tracker
-     * @param input input
      */
-    private void edititem(Tracker tracker, Input input) {
+    private void edititem() {
         String id = input.ask("Enter item id:");
         Item item = tracker.findById(id);
         if (item != null) {
@@ -112,10 +123,8 @@ public class StartUI {
 
     /**.
      *
-     * @param tracker tracker
-     * @param input input
      */
-    private void deleteitem(Tracker tracker, Input input) {
+    private void deleteitem() {
         String id = input.ask("Enter item id:");
         Item item = tracker.findById(id);
         if (item != null) {
@@ -128,10 +137,8 @@ public class StartUI {
 
     /**.
      *
-     * @param tracker tracker
-     * @param input input
      */
-    private void finditembyid(Tracker tracker, Input input) {
+    private void finditembyid() {
         String id = input.ask("Enter item key:");
         Item r = tracker.findById(id);
         if (r != null) {
@@ -143,10 +150,8 @@ public class StartUI {
 
     /**.
      *
-     * @param tracker tracker
-     * @param input input
      */
-    private void finditembyname(Tracker tracker, Input input) {
+    private void finditembyname() {
         String key = input.ask("Enter item name:");
         Item[] result = tracker.findByName(key);
         if (result[0] != null) {
@@ -160,10 +165,8 @@ public class StartUI {
 
     /**.
      *
-     * @param tracker tracker
-     * @param input input
      */
-    private void additem(Tracker tracker, Input input) {
+    private void additem() {
         String name = input.ask("Get new item name:");
         String desc = input.ask("Get description:");
         Item item = new Item(name, desc, 123L);
@@ -173,10 +176,8 @@ public class StartUI {
 
     /**.
      *
-     * @param tracker tracker
-     * @param input input
      */
-    private void showall(Tracker tracker, Input input) {
+    private void showall() {
         Item[] result = tracker.findAll();
         for (Item r: result) {
             System.out.printf("%s, %s, %s\n", r.getId(), r.getName(), r.getDescription());
