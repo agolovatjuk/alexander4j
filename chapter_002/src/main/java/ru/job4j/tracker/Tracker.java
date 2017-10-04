@@ -169,12 +169,36 @@ class Item {
 
     /**.
      *
+     * @param name String
+     * @param description String
+     * @param create String
+     * @param comments String[]
+     */
+    Item(String name, String description, long create, String[] comments) {
+        this.name = name;
+        this.description = description;
+        this.created = create;
+        this.comments = new String[comments.length];
+        System.arraycopy(comments, 0, this.comments, 0, comments.length);
+    }
+    /**.
+     *
      * @param id String
      */
     public void setId(String id) {
         this.id = id;
     }
 
+    /**.
+     *
+     * @param entries String[]
+     */
+    public void setComments(String[] entries) {
+        if (entries != null) {
+            this.comments = new String[entries.length];
+            System.arraycopy(entries, 0, this.comments, 0, entries.length);
+        }
+    }
     /**.
      *
      * @return id
@@ -205,6 +229,14 @@ class Item {
      */
     public long getCreated() {
         return this.created;
+    }
+
+    /**.
+     *
+     * @return String[] comments
+     */
+    public String[] getComments() {
+        return this.comments;
     }
 }
 
