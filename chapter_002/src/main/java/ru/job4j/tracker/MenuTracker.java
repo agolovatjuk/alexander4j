@@ -83,6 +83,14 @@ public class MenuTracker {
 
     /**.
      *
+     * @return UserAction[]
+     */
+    public UserAction[] getActions() {
+        return this.actions;
+    }
+
+    /**.
+     *
      * @param key int
      */
     public void select(int key) {

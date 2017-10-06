@@ -14,39 +14,15 @@ public class StartUI {
     /**.
      *
      */
-    private static final int ADD = 0;
-    /**.
-     *
-     */
-    private static final int SHOW = 1;
-    /**.
-     *
-     */
-    private static final int EDIT = 2;
-    /**.
-     *
-     */
-    private static final int DELETE = 3;
-    /**.
-     *
-     */
-    private static final int FINDBYID = 4;
-    /**.
-     *
-     */
-    private static final int FINDBYNAME = 5;
-    /**.
-     *
-     */
-    private static final int EXIT = 6;
-    /**.
-     *
-     */
     private Input input;
     /**.
      *
      */
     private Tracker tracker;
+    /**.
+     *
+     */
+    private int[] range;
 
     /**.
      *
@@ -63,7 +39,7 @@ public class StartUI {
      */
     public static void main(String[] args) {
         Tracker tracker = new Tracker();
-        Input input = new ConsoleInput();
+        Input input = new ValidateInput();
         StartUI ui = new StartUI(tracker, input);
         ui.init();
     }
@@ -75,9 +51,16 @@ public class StartUI {
         MenuTracker menu = new MenuTracker(this.input, this.tracker);
         menu.fillActions();
 
+        int acts = menu.getActions().length;
+        range = new int[acts];
+
+        for (int i = 0; i < acts; i++) {
+            range[i] = i;
+        }
+
         do {
             menu.show();
-            answer = Integer.parseInt(input.ask("Select:"));
+            answer = Integer.valueOf(input.ask("Select:", range));
             menu.select(answer);
         } while (answer != 6);
         System.out.println("Good bye!");

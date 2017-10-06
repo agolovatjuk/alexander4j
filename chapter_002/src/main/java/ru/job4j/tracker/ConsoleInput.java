@@ -19,6 +19,36 @@ public class ConsoleInput implements Input {
 
     /**.
      *
+     * @param question String
+     * @param range int[]
+     * @return answer
+     * @throws MenuOutException moe
+     */
+    public int ask(String question, int[] range) throws MenuOutException {
+        /**.
+         *
+         */
+        int key = Integer.valueOf(this.ask(question));
+        /**.
+         *
+         */
+        boolean exist = false;
+
+        for (int i = 0; i < range.length; i++) {
+            if (key == range[i]) {
+                exist = true;
+                break;
+            }
+        }
+        if (exist) {
+            return key;
+        } else {
+            throw new MenuOutException("Out of menu range");
+        }
+    }
+
+    /**.
+     *
      * @param data String
      */
     @Override

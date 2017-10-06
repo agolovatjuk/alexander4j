@@ -23,8 +23,14 @@ public class StubInput implements Input {
 
     @Override
     public String ask(String question) {
-//        position = position % answers.length;
         return answers[position++];
+    }
+
+    @Override
+    public int ask(String question, int[] range) {
+//        throw new UnsupportedOperationException("Not realized");
+        return Integer.parseInt(answers[position++]);
+//        return -1;
     }
 
     @Override
