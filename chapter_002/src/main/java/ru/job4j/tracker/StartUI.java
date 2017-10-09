@@ -51,12 +51,7 @@ public class StartUI {
         int answer = 6;
         MenuTracker menu = new MenuTracker(this.input, this.tracker);
 
-        UserAction addItem = new BaseAction() {
-            @Override
-            public int key() {
-                return 0;
-            }
-
+        UserAction addItem = new BaseAction("Add new Item", 0) {
             @Override
             public void execute(Input input, Tracker tracker) {
                 String name = input.ask("Get new item name:");
@@ -65,19 +60,9 @@ public class StartUI {
                 tracker.add(task);
                 System.out.println("New item added");
             }
-
-            @Override
-            public String info() {
-                return String.format("%s, %s", this.key(), "Add new item");
-            }
         };
 
-        UserAction showItems = new BaseAction() {
-            @Override
-            public int key() {
-                return 1;
-            }
-
+        UserAction showItems = new BaseAction("Show Items", 1) {
             @Override
             public void execute(Input input, Tracker tracker) {
                 Item[] result = tracker.findAll();
@@ -85,19 +70,9 @@ public class StartUI {
                     System.out.printf("%s, %s, %s\n", r.getId(), r.getName(), r.getDescription());
                 }
             }
-
-            @Override
-            public String info() {
-                return String.format("%s, %s", this.key(), "Show all items");
-            }
         };
 
-        UserAction editItem = new BaseAction() {
-            @Override
-            public int key() {
-                return 2;
-            }
-
+        UserAction editItem = new BaseAction("Edit Item", 2) {
             @Override
             public void execute(Input input, Tracker tracker) {
                 String id = input.ask("Enter item id:");
@@ -113,19 +88,9 @@ public class StartUI {
                     System.out.printf("%s: not found\n", id);
                 }
             }
-
-            @Override
-            public String info() {
-                return String.format("%s, %s", this.key(), "Edit item");
-            }
         };
 
-        UserAction deleteItem = new BaseAction() {
-            @Override
-            public int key() {
-                return 3;
-            }
-
+        UserAction deleteItem = new BaseAction("Delete item", 3) {
             @Override
             public void execute(Input input, Tracker tracker) {
                 String id = input.ask("Enter item id:");
@@ -137,22 +102,49 @@ public class StartUI {
                     System.out.printf("%s: not found\n", id);
                 }
             }
+        };
 
+        UserAction findItemById = new BaseAction("Finf Item by ID", 4) {
             @Override
-            public String info() {
-                return String.format("%s, %s", this.key(), "Delete item");
+            public void execute(Input input, Tracker tracker) {
+                String id = input.ask("Enter item key:");
+                Item r = tracker.findById(id);
+                if (r != null) {
+                    System.out.printf("%s, %s, %s\n", r.getId(), r.getName(), r.getDescription());
+                } else {
+                    System.out.printf("%s: not found\n", id);
+                }
             }
         };
 
+        UserAction findItemByName = new BaseAction("Find Item by Name", 5) {
+            @Override
+            public void execute(Input input, Tracker tracker) {
+                String key = input.ask("Enter item name:");
+                Item[] result = tracker.findByName(key);
+                if (result[0] != null) {
+                    for (Item r: result) {
+                        System.out.printf("%s, %s, %s\n", r.getId(), r.getName(), r.getDescription());
+                    }
+                } else {
+                    System.out.println("Not found");
+                }
+            }
+        };
+
+        UserAction exitAction = new BaseAction("Exit", 6) {
+            @Override
+            public void execute(Input input, Tracker tracker) {
+            }
+        };
 
         menu.addAction(addItem);
         menu.addAction(showItems);
         menu.addAction(editItem);
         menu.addAction(deleteItem);
-//        menu.addAction(findItemById);
-//        menu.addAction(findItemByName);
-//        menu.addAction(exitAction);
-        menu.fillActions();
+        menu.addAction(findItemById);
+        menu.addAction(findItemByName);
+        menu.addAction(exitAction);
 
         int acts = menu.getActions().length;
         range = new int[acts];
