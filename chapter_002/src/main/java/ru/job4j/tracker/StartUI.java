@@ -43,12 +43,115 @@ public class StartUI {
         StartUI ui = new StartUI(tracker, input);
         ui.init();
     }
+
     /**.
      *
      */
     public void init() {
         int answer = 6;
         MenuTracker menu = new MenuTracker(this.input, this.tracker);
+
+        UserAction addItem = new BaseAction() {
+            @Override
+            public int key() {
+                return 0;
+            }
+
+            @Override
+            public void execute(Input input, Tracker tracker) {
+                String name = input.ask("Get new item name:");
+                String desc = input.ask("Get description:");
+                Task task = new Task(name, desc, 123L);
+                tracker.add(task);
+                System.out.println("New item added");
+            }
+
+            @Override
+            public String info() {
+                return String.format("%s, %s", this.key(), "Add new item");
+            }
+        };
+
+        UserAction showItems = new BaseAction() {
+            @Override
+            public int key() {
+                return 1;
+            }
+
+            @Override
+            public void execute(Input input, Tracker tracker) {
+                Item[] result = tracker.findAll();
+                for (Item r: result) {
+                    System.out.printf("%s, %s, %s\n", r.getId(), r.getName(), r.getDescription());
+                }
+            }
+
+            @Override
+            public String info() {
+                return String.format("%s, %s", this.key(), "Show all items");
+            }
+        };
+
+        UserAction editItem = new BaseAction() {
+            @Override
+            public int key() {
+                return 2;
+            }
+
+            @Override
+            public void execute(Input input, Tracker tracker) {
+                String id = input.ask("Enter item id:");
+                Item item = tracker.findById(id);
+                if (item != null) {
+                    String name = input.ask("Get new name:");
+                    String desc = input.ask("Get new description:");
+                    Item newitem = new Item(name, desc, 123L);
+                    newitem.setId(item.getId());
+                    newitem.setComments(item.getComments());
+                    tracker.update(newitem);
+                } else {
+                    System.out.printf("%s: not found\n", id);
+                }
+            }
+
+            @Override
+            public String info() {
+                return String.format("%s, %s", this.key(), "Edit item");
+            }
+        };
+
+        UserAction deleteItem = new BaseAction() {
+            @Override
+            public int key() {
+                return 3;
+            }
+
+            @Override
+            public void execute(Input input, Tracker tracker) {
+                String id = input.ask("Enter item id:");
+                Item item = tracker.findById(id);
+                if (item != null) {
+                    tracker.delete(item);
+                    System.out.println("Item deleted");
+                } else {
+                    System.out.printf("%s: not found\n", id);
+                }
+            }
+
+            @Override
+            public String info() {
+                return String.format("%s, %s", this.key(), "Delete item");
+            }
+        };
+
+
+        menu.addAction(addItem);
+        menu.addAction(showItems);
+        menu.addAction(editItem);
+        menu.addAction(deleteItem);
+//        menu.addAction(findItemById);
+//        menu.addAction(findItemByName);
+//        menu.addAction(exitAction);
         menu.fillActions();
 
         int acts = menu.getActions().length;

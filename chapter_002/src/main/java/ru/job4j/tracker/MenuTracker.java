@@ -1,45 +1,45 @@
 package ru.job4j.tracker;
 
-/**.
- *
- */
-class EditItem implements UserAction {
-    /**.
-     *
-     * @return key
-     */
-    public int key() {
-        return 2;
-    }
-
-    /**.
-     *
-     * @param input INput
-     * @param tracker Tracker
-     */
-    public void execute(Input input, Tracker tracker) {
-        String id = input.ask("Enter item id:");
-        Item item = tracker.findById(id);
-        if (item != null) {
-            String name = input.ask("Get new name:");
-            String desc = input.ask("Get new description:");
-            Item newitem = new Item(name, desc, 123L);
-            newitem.setId(item.getId());
-            newitem.setComments(item.getComments());
-            tracker.update(newitem);
-        } else {
-            System.out.printf("%s: not found\n", id);
-        }
-    }
-
-    /**.
-     *
-     * @return String
-     */
-    public String info() {
-        return String.format("%s, %s", this.key(), "Edit item");
-    }
-}
+///**.
+// *
+// */
+//class EditItem implements UserAction {
+//    /**.
+//     *
+//     * @return key
+//     */
+//    public int key() {
+//        return 2;
+//    }
+//
+//    /**.
+//     *
+//     * @param input INput
+//     * @param tracker Tracker
+//     */
+//    public void execute(Input input, Tracker tracker) {
+//        String id = input.ask("Enter item id:");
+//        Item item = tracker.findById(id);
+//        if (item != null) {
+//            String name = input.ask("Get new name:");
+//            String desc = input.ask("Get new description:");
+//            Item newitem = new Item(name, desc, 123L);
+//            newitem.setId(item.getId());
+//            newitem.setComments(item.getComments());
+//            tracker.update(newitem);
+//        } else {
+//            System.out.printf("%s: not found\n", id);
+//        }
+//    }
+//
+//    /**.
+//     *
+//     * @return String
+//     */
+//    public String info() {
+//        return String.format("%s, %s", this.key(), "Edit item");
+//    }
+//}
 
 /**.
  *
@@ -57,7 +57,10 @@ public class MenuTracker {
      *
      */
     private UserAction[] actions = new UserAction[7];
-
+    /**.
+     *
+     */
+    private int position = 0;
     /**.
      *
      * @param input Input
@@ -72,15 +75,22 @@ public class MenuTracker {
      *
      */
     public void fillActions() {
-        actions[0] = new AddItem();
-        actions[1] = new ShowItems();
-        actions[2] = new EditItem();
-        actions[3] = new DeleteItem();
-        actions[4] = new FindItemById();
-        actions[5] = new FindItemByName();
-        actions[6] = new Exit();
+//        actions[position++] = new AddItem();
+//        actions[position++] = new ShowItems();
+//        actions[position++] = new EditItem();
+//        actions[position++] = new DeleteItem();
+        actions[position++] = new FindItemById();
+        actions[position++] = new FindItemByName();
+        actions[position++] = new Exit();
     }
 
+    /**.
+     *
+     * @param action UserAction
+     */
+    public void addAction(UserAction action) {
+        actions[position++] = action;
+    }
     /**.
      *
      * @return UserAction[]
@@ -107,103 +117,103 @@ public class MenuTracker {
             }
         }
     }
-    /**.
-     *
-     */
-    private class AddItem implements UserAction {
-        /**.
-         *
-         * @return int
-         */
-        public int key() {
-            return 0;
-        }
-        /**.
-         *
-         * @param input INput
-         * @param tracker Tracker
-         */
-        public void execute(Input input, Tracker tracker) {
-            String name = input.ask("Get new item name:");
-            String desc = input.ask("Get description:");
-            Task task = new Task(name, desc, 123L);
-            tracker.add(task);
-            System.out.println("New item added");
-        }
-        /**.
-         *
-         * @return String
-         */
-        public String info() {
-            return String.format("%s, %s", this.key(), "Add new item");
-        }
-    }
+//    /**.
+//     *
+//     */
+//    private class AddItem implements UserAction {
+//        /**.
+//         *
+//         * @return int
+//         */
+//        public int key() {
+//            return 0;
+//        }
+//        /**.
+//         *
+//         * @param input INput
+//         * @param tracker Tracker
+//         */
+//        public void execute(Input input, Tracker tracker) {
+//            String name = input.ask("Get new item name:");
+//            String desc = input.ask("Get description:");
+//            Task task = new Task(name, desc, 123L);
+//            tracker.add(task);
+//            System.out.println("New item added");
+//        }
+//        /**.
+//         *
+//         * @return String
+//         */
+//        public String info() {
+//            return String.format("%s, %s", this.key(), "Add new item");
+//        }
+//    }
 
-    /**.
-     *
-     */
-    private static class ShowItems implements UserAction {
-        /**.
-         *
-         * @return int
-         */
-        public int key() {
-            return 1;
-        }
-        /**.
-         *
-         * @param input INput
-         * @param tracker Tracker
-         */
-        public void execute(Input input, Tracker tracker) {
-            Item[] result = tracker.findAll();
-            for (Item r: result) {
-                System.out.printf("%s, %s, %s\n", r.getId(), r.getName(), r.getDescription());
-            }
-        }
-        /**.
-         *
-         * @return String
-         */
-        public String info() {
-            return String.format("%s, %s", this.key(), "Show all items");
-        }
-    }
+//    /**.
+//     *
+//     */
+//    private static class ShowItems implements UserAction {
+//        /**.
+//         *
+//         * @return int
+//         */
+//        public int key() {
+//            return 1;
+//        }
+//        /**.
+//         *
+//         * @param input INput
+//         * @param tracker Tracker
+//         */
+//        public void execute(Input input, Tracker tracker) {
+//            Item[] result = tracker.findAll();
+//            for (Item r: result) {
+//                System.out.printf("%s, %s, %s\n", r.getId(), r.getName(), r.getDescription());
+//            }
+//        }
+//        /**.
+//         *
+//         * @return String
+//         */
+//        public String info() {
+//            return String.format("%s, %s", this.key(), "Show all items");
+//        }
+//    }
 
-    /**.
-     *
-     */
-    private static class DeleteItem implements UserAction {
-        /**.
-         *
-         * @return int
-         */
-        public int key() {
-            return 3;
-        }
-        /**.
-         *
-         * @param input INput
-         * @param tracker Tracker
-         */
-        public void execute(Input input, Tracker tracker) {
-            String id = input.ask("Enter item id:");
-            Item item = tracker.findById(id);
-            if (item != null) {
-                tracker.delete(item);
-                System.out.println("Item deleted");
-            } else {
-                System.out.printf("%s: not found\n", id);
-            }
-        }
-        /**.
-         *
-         * @return String
-         */
-        public String info() {
-            return String.format("%s, %s", this.key(), "Delete item");
-        }
-    }
+//    /**.
+//     *
+//     */
+//    private static class DeleteItem implements UserAction {
+//        /**.
+//         *
+//         * @return int
+//         */
+//        public int key() {
+//            return 3;
+//        }
+//        /**.
+//         *
+//         * @param input INput
+//         * @param tracker Tracker
+//         */
+//        public void execute(Input input, Tracker tracker) {
+//            String id = input.ask("Enter item id:");
+//            Item item = tracker.findById(id);
+//            if (item != null) {
+//                tracker.delete(item);
+//                System.out.println("Item deleted");
+//            } else {
+//                System.out.printf("%s: not found\n", id);
+//            }
+//        }
+//        /**.
+//         *
+//         * @return String
+//         */
+//        public String info() {
+//            return String.format("%s, %s", this.key(), "Delete item");
+//        }
+//    }
 
     /**.
      *
