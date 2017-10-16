@@ -18,7 +18,6 @@ public class Board {
             throw new OccupiedWayException("Cell destination occupied");
         }
 
-        source.figure.way(dest);
         return true;
     }
 
@@ -60,12 +59,22 @@ public class Board {
         figures[15 + 8 + 2] = new Bishop("Bishop", initcell("c8"), black);
     }
 
+    void step(String pos1, String pos2) {
+        Cell src = getcell(pos1);
+        Cell dst = getcell(pos2);
+        if (move(src, dst) == true) {
+            dst = initcell(pos2);
+            Cell[] possible = src.figure.way(dst);
+            dst.figure = src.figure.clone(dst);
+            src.figure = null;
+        }
+    }
+
     public static void main(String[] args) {
         Board b = new Board();
-        Cell e2 = b.getcell("e2");
-        Cell e4 = b.getcell("e4");
-        b.move(e2, e4);
-//        b.move(b.cells[c2n("c1")], b.cells[c2n("a3")]);
-        b.move(b.getcell("c1"), b.getcell("a3"));
+        // White Pawn e2->e4 OK
+        b.step("e2", "e4");
+        // White Bishop c1->a3 Fail, no way
+        b.step("c1", "a3");
     }
 }
