@@ -21,6 +21,13 @@ public class Board {
         return true;
     }
 
+    void remcell(String pos) {
+        char[] p = pos.toCharArray();
+        int letter = Integer.valueOf(p[0] - 97);
+        int dig = Integer.valueOf(String.valueOf(p[1])) - 1;
+        this.cells2[dig][letter] = null;
+    }
+
     Cell getcell(String pos) {
         char[] p = pos.toCharArray();
         int letter = Integer.valueOf(p[0] - 97);
@@ -32,9 +39,8 @@ public class Board {
         char[] p = pos.toCharArray();
         int letter = Integer.valueOf(p[0] - 97);
         int dig = Integer.valueOf(String.valueOf(p[1])) - 1;
-        Cell c = new Cell(pos);
-        cells2[dig][letter] = c;
-        return c;
+        this.cells2[dig][letter] = new Cell(pos);
+        return this.cells2[dig][letter];
     }
 
     void init(){
@@ -65,8 +71,9 @@ public class Board {
         if (move(src, dst) == true) {
             dst = initcell(pos2);
             Cell[] possible = src.figure.way(dst);
-            dst.figure = src.figure.clone(dst);
-            src.figure = null;
+            Figure f;
+            f = src.figure.clone(dst);
+            remcell(pos1);
         }
     }
 
