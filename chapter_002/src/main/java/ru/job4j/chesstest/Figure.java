@@ -8,6 +8,7 @@ abstract public class Figure {
     Figure(String name, Cell position, String color) {
         this.name = name;
         this.position = position;
+        this.position.figure = this;
         this.color = color;
     }
 
