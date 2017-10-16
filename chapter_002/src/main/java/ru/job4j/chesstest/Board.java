@@ -41,26 +41,21 @@ public class Board {
     void init(){
         String black = "black";
         String white = "white";
-        Cell c;
         String p;
 
         // set white bishop c1
         this.figures[2] = new Bishop("Bishop", initcell("c1"), white);
-
         // set 8 white pawns
         for (int i = 0; i < 8; i++) {
             p = String.format("%c%d", letters[i], 2);
-            c = initcell(p);
-            this.figures[8 + i] = new Pawn("Pawn", c, white);
+            this.figures[8 + i] = new Pawn("Pawn", initcell(p), white);
         }
 
         // set 8 black pawns
         for (int i = 0; i < 8; i++) {
             p = String.format("%c%d", letters[i], 7);
-            c = initcell(p);
-            this.figures[15 + i] = new Pawn("Pawn", c, black);
+            this.figures[15 + i] = new Pawn("Pawn", initcell(p), black);
         }
-
         // set black bishop c8
         figures[15 + 8 + 2] = new Bishop("Bishop", initcell("c8"), black);
     }
