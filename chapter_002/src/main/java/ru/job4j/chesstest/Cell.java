@@ -1,11 +1,10 @@
 package ru.job4j.chesstest;
 
 public class Cell {
-    private char hrzt;
-    private int hrzt_int = 0;
+    private char letter;
     private int vert = 0;
     private boolean state = true;
-    final private char[] letters = "abcdefgh".toCharArray();
+    Figure figure = null;
 
     /**.
      *
@@ -13,9 +12,8 @@ public class Cell {
      */
     Cell(String pos) {
         char[] p = pos.toCharArray();
-        this.hrzt = p[0]; // a, b, c ... hrzt
+        this.letter = p[0]; // a, b, c ... letter
         // a = 97
-        this.hrzt_int = Integer.valueOf(p[0] - 97 + 1);
         this.vert = Integer.valueOf(String.valueOf(p[1]));
     }
 

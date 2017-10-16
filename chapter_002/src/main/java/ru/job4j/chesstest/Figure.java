@@ -11,5 +11,7 @@ abstract public class Figure {
         this.color = color;
     }
 
+    abstract Figure clone(Cell cell);
+
     abstract Cell[] way(Cell dest) throws ImpossibleMoveException;
 }

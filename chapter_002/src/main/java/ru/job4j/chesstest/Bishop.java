@@ -7,7 +7,20 @@ public class Bishop extends Figure {
     }
 
     @Override
-    Cell[] way(Cell dist) throws ImpossibleMoveException {
+    Bishop clone(Cell cell) {
+        return new Bishop(this.name, cell, this.color);
+    }
+
+    Cell[] possiblemove(Cell dest) {
+        Cell src = this.position;
+        Cell[] cell = new Cell[10];
+
+        return cell;
+    }
+
+    @Override
+    Cell[] way(Cell dest) throws ImpossibleMoveException {
+        possiblemove(dest);
         return new Cell[0];
     }
 }
