@@ -11,16 +11,26 @@ public class Bishop extends Figure {
         return new Bishop(this.name, cell, this.color);
     }
 
-    Cell[] possiblemove(Cell dest) {
-        Cell src = this.position;
-        Cell[] cell = new Cell[10];
-
-        return cell;
-    }
-
     @Override
     Cell[] way(Cell dest) throws ImpossibleMoveException {
-        possiblemove(dest);
-        return new Cell[0];
+        Cell src = this.position;
+        int flag_letter = 1, flag_digit = 1;
+        int dlet = dest.letter - src.letter;
+        int ddig = dest.digit - src.digit;
+        if(Math.abs(dlet) != Math.abs(ddig)) {
+            throw new ImpossibleMoveException("Impossible move");
+        }
+        if (dlet < 0) {
+           flag_letter = -1;
+        }
+        if (ddig < 0) {
+            flag_digit = -1;
+        }
+        int delta = Math.abs(dlet);
+        Cell[] p = new Cell[delta];
+        for (int i = 0; i < delta; i++) {
+            p[i] = new Cell(src.letter + (i + 1) * flag_letter, src.digit + (i + 1) * flag_digit);
+        }
+        return p;
     }
 }

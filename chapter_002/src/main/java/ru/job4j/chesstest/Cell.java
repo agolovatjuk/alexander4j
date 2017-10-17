@@ -1,12 +1,10 @@
 package ru.job4j.chesstest;
 
-import ru.job4j.tracker.Input;
-
 public class Cell {
     final String pos;
     int letter;
-    int vert;
-    Figure figure = null;
+    int digit;
+    Figure figure;
 
     /**.
      *
@@ -17,7 +15,17 @@ public class Cell {
         char[] p = pos.toCharArray();
         this.letter = Integer.valueOf(p[0]) - 97; // a, b, c ... letter
         // a = 97
-        this.vert = Integer.valueOf(String.valueOf(p[1])) - 1;
+        this.digit = Integer.valueOf(String.valueOf(p[1])) - 1;
     }
 
+    /**.
+     *
+     * @param letter int
+     * @param digit int
+     */
+    Cell(int letter, int digit) {
+        this.letter = letter;
+        this.digit = digit;
+        this.pos = String.format("%c%d", letter + 97, digit + 1);
+    }
 }
