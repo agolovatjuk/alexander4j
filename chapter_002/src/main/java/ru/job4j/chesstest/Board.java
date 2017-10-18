@@ -1,13 +1,37 @@
 package ru.job4j.chesstest;
 
+/**.
+ * main chess board class
+ */
 public class Board {
+    /**.
+     * Board 8x8
+     */
     final int N = 8;
+    /**.
+     * Board is 8x8 Cell
+     */
     Cell[][] cells = new Cell[N][N];
 
+    /**.
+     * Constructor
+     */
     Board() {
+        /**.
+         * init
+         */
         init();
     }
 
+    /**.
+     * Try to move from source Cell to dest Cell
+     * @param source Cell
+     * @param dest Cell
+     * @return boolean
+     * @throws ImpossibleMoveException wrong move
+     * @throws OccupiedWayException way is occupied
+     * @throws FigureNotFoundException no figure to move
+     */
     boolean move(Cell source, Cell dest) throws ImpossibleMoveException, OccupiedWayException, FigureNotFoundException{
 
         if (source.figure == null) {
@@ -30,6 +54,11 @@ public class Board {
         return true;
     }
 
+    /**.
+     * return Cell from it String position
+     * @param pos String
+     * @return Cell
+     */
     Cell getcell(String pos) {
         char[] p = pos.toCharArray();
         int letter = Integer.valueOf(p[0] - 97);
@@ -37,6 +66,9 @@ public class Board {
         return this.cells[letter][digit];
     }
 
+    /**.
+     * Init chess board wit
+     */
     void init(){
         String black = "black", white = "white";
 
@@ -77,8 +109,8 @@ public class Board {
 //        b.step("c2", "c5");
         // White Bishop c1->a3 Fail, no way
         b.step("b2", "b3");
-        b.step("c1", "a3");
-        b.step("a3", "d6");
-        b.step("d6", "g3");
+        b.step("f1", "b4");
+//        b.step("a3", "d6");
+//        b.step("d6", "g3");
     }
 }

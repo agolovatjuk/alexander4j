@@ -1,13 +1,28 @@
 package ru.job4j.chesstest;
 
+/**.
+ * class Cell for save figure position
+ */
 public class Cell {
+    /**.
+     * position String
+     */
     final String pos;
+    /**.
+     * which letter from abcdefgh on board
+     */
     int letter;
+    /**.
+     * which digit on board
+     */
     int digit;
+    /**.
+     * figure in the position or null if empty
+     */
     Figure figure;
 
     /**.
-     *
+     * Cell can be initiated with String
      * @param pos String "e2"
      */
     Cell(String pos) {
@@ -19,7 +34,7 @@ public class Cell {
     }
 
     /**.
-     *
+     * Cell can be initiated with two digits
      * @param letter int
      * @param digit int
      */
