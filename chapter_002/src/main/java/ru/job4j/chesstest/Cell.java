@@ -16,10 +16,6 @@ public class Cell {
      * which digit on board
      */
     int digit;
-    /**.
-     * figure in the position or null if empty
-     */
-    Figure figure;
 
     /**.
      * Cell can be initiated with String

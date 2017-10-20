@@ -25,17 +25,15 @@ public class Pawn extends Figure {
         int maxmove = 0;
         Cell[] path;
 
-        int flag = 1;
-        if (src.figure.color.equals("black")) {
-            flag = -1;
-        }
+        int flag = this.color.equals("white") ? 1 : -1;
+
         if ((src.digit == 1 | src.digit == 6) & src.digit + 2 * flag == dest.digit) {
             maxmove += 2;
         } else if (src.digit + 1 * flag == dest.digit) {
             maxmove += 1;
         } else {
             throw new ImpossibleMoveException(String.format("Impossible move %s Pawn from %s to %s",
-                    src.figure.color, src.pos, dest.pos));
+                    this.color, src.pos, dest.pos));
         }
         path = new Cell[maxmove];
         for (int i = 0; i < maxmove; i++) {
