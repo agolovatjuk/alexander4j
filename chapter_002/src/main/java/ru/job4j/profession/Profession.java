@@ -215,6 +215,32 @@ class Engeneer extends Profession {
 /**.
  *
  */
+class Diagnose {
+    /**.
+     *
+     */
+    String description;
+
+    /**.
+     *
+     * @param pacient Pacient
+     * @param diagnose String
+     */
+    Diagnose(Pacient pacient, String diagnose) {
+        this.description = diagnose;
+    }
+
+    /**.
+     *
+     * @return String
+     */
+    String info() {
+        return description;
+    }
+}
+/**.
+ *
+ */
 class Doctor extends Profession {
     /**.
      *
@@ -247,6 +273,19 @@ class Doctor extends Profession {
     public String heal(Pacient pacient) {
         return "Doctor " + getName() + " heals " + pacient.getName();
     }
+
+    /**.
+     *
+     * @param pacient Pacient
+     * @param description String
+     * @return Diagnose
+     */
+    public Diagnose heal(Pacient pacient, String description) {
+        description = String.format("Доктор %s лечит %s от %s", this.getName(), pacient.getName(), description);
+        Diagnose d = new Diagnose(pacient, description);
+        return d;
+    }
+
     /**.
      *
      * @param t Task

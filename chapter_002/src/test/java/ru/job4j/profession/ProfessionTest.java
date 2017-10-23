@@ -19,4 +19,17 @@ public class ProfessionTest {
         String expected = "Doctor Ivan heals Sergej";
         assertThat(d.heal(p), is(expected));
     }
+
+    /**.
+     * Доктор Иван лечит Сергея от гриппа
+     */
+    @Test
+    public void whenDoctorDiagnosesPacientThen() {
+        Pacient p = new Pacient("Сергей", "Artist", "high");
+        Doctor d = new Doctor("Иван", "Terapevt",
+                "middle", "MGU", "001", true);
+        Diagnose diag  = d.heal(p, "Грипп");
+        String expected = "Доктор Иван лечит Сергей от Грипп";
+        assertThat(diag.info(), is(expected));
+    }
 }
