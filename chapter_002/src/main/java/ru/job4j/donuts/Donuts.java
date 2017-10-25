@@ -10,7 +10,7 @@ public class Donuts {
     /**.
      * пончиков осталось
      */
-    private int donutsleft = 0;
+    int donutsleft = 0;
     /**.
      * цена за один пончик
      */
