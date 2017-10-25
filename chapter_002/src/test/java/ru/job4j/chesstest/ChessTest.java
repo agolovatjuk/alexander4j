@@ -16,11 +16,11 @@ public class ChessTest {
         Board b = new Board();
         try {
             // Bishop f1->b5
-            b.whiteFigures[13] = b.step("f1", "b5");
+            b.getWhiteFigures()[13] = b.step("f1", "b5");
         } catch (OccupiedWayException e) {
             assertThat(e.getMessage(), is("Way occupied by white Pawn on e2"));
-            b.whiteFigures[4] = b.step("e2", "e4");
-            b.whiteFigures[13] = b.step("f1", "b5");
+            b.getWhiteFigures()[4] = b.step("e2", "e4");
+            b.getWhiteFigures()[13] = b.step("f1", "b5");
         }
     }
 
@@ -31,8 +31,8 @@ public class ChessTest {
     public void whenBishopGoWrongThen() {
         Board b = new Board();
         try {
-            b.whiteFigures[4] = b.step("e2", "e4");
-            b.whiteFigures[13] = b.step("f1", "b3");
+            b.getWhiteFigures()[4] = b.step("e2", "e4");
+            b.getWhiteFigures()[13] = b.step("f1", "b3");
         } catch (ImpossibleMoveException e) {
             assertThat(e.getMessage(), is("Impossible move"));
         }
@@ -44,9 +44,9 @@ public class ChessTest {
     @Test
     public void whenNoFigureThen() {
         Board b = new Board();
-        b.whiteFigures[4] = null;
+        b.getWhiteFigures()[4] = null;
         try {
-            b.whiteFigures[4] = b.step("a4", "e4");
+            b.getWhiteFigures()[4] = b.step("a4", "e4");
         } catch (FigureNotFoundException e) {
             assertThat(e.getMessage(), is("Figure not found"));
         }

@@ -7,15 +7,15 @@ public abstract class Figure {
     /**.
      * color white or black
      */
-    final String color;
+    private final String color;
     /**.
      * figure's name
      */
-    final String name;
+    private final String name;
     /**.
      * figures position on board
      */
-    final Cell position;
+    private final Cell position;
 
     /**.
      * put figure on the position
@@ -33,4 +33,16 @@ public abstract class Figure {
     abstract Figure clone(Cell cell);
 
     abstract Cell[] way(Cell dest) throws ImpossibleMoveException;
+
+    public String getName() {
+        return name;
+    }
+
+    public String getColor() {
+        return color;
+    }
+
+    public Cell getPosition() {
+        return position;
+    }
 }

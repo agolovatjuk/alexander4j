@@ -8,16 +8,16 @@ public class Bishop extends Figure {
 
     @Override
     Bishop clone(Cell cell) {
-        return new Bishop(this.name, cell, this.color);
+        return new Bishop(this.getName(), cell, this.getColor());
     }
 
     @Override
     Cell[] way(Cell dest) throws ImpossibleMoveException {
-        Cell src = this.position;
+        Cell src = this.getPosition();
         int flagLetter = 1, flagDigit = 1;
-        int dlet = dest.letter - src.letter;
-        int ddig = dest.digit - src.digit;
-        if(Math.abs(dlet) != Math.abs(ddig)) {
+        int dlet = dest.getLetter() - src.getLetter();
+        int ddig = dest.getDigit() - src.getDigit();
+        if (Math.abs(dlet) != Math.abs(ddig)) {
             throw new ImpossibleMoveException("Impossible move");
         }
         if (dlet < 0) {
@@ -29,7 +29,7 @@ public class Bishop extends Figure {
         int delta = Math.abs(dlet);
         Cell[] p = new Cell[delta];
         for (int i = 0; i < delta; i++) {
-            p[i] = new Cell(src.letter + (i + 1) * flagLetter, src.digit + (i + 1) * flagDigit);
+            p[i] = new Cell(src.getLetter() + (i + 1) * flagLetter, src.getDigit() + (i + 1) * flagDigit);
         }
         return p;
     }

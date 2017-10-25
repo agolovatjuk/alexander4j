@@ -7,15 +7,15 @@ public class Cell {
     /**.
      * position String
      */
-    final String pos;
+    private final String pos;
     /**.
      * which letter from abcdefgh on board
      */
-    int letter;
+    private int letter;
     /**.
      * which digit on board
      */
-    int digit;
+    private int digit;
 
     /**.
      * Cell can be initiated with String
@@ -38,5 +38,17 @@ public class Cell {
         this.letter = letter;
         this.digit = digit;
         this.pos = String.format("%c%d", letter + 97, digit + 1);
+    }
+
+    public String getPos() {
+        return this.pos;
+    }
+
+    public int getLetter() {
+        return letter;
+    }
+
+    public int getDigit() {
+        return digit;
     }
 }

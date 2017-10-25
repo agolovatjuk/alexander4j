@@ -126,18 +126,18 @@ public class Donuts {
     int getcharge(int money) {
         int charge = money % this.donutprice;
         int[] nominal = {10, 5, 2, 1};
-        int[] tmp_coins = new int[4];
-        System.arraycopy(this.coins, 0, tmp_coins, 0, 4);
+        int[] tmpCoins = new int[4];
+        System.arraycopy(this.coins, 0, tmpCoins, 0, 4);
 
         for (int i = 0; charge > 0 && i < 4; i++) {
-            if (tmp_coins[i] > 0 && charge >= nominal[i]) {
-                int cnt_coins = Math.min(tmp_coins[i], charge / nominal[i]);
-                tmp_coins[i] -= cnt_coins;
-                charge -= cnt_coins * nominal[i];
+            if (tmpCoins[i] > 0 && charge >= nominal[i]) {
+                int cntCoins = Math.min(tmpCoins[i], charge / nominal[i]);
+                tmpCoins[i] -= cntCoins;
+                charge -= cntCoins * nominal[i];
             }
         }
         if (charge == 0) {
-            this.coins = tmp_coins;
+            this.coins = tmpCoins;
             return money % this.donutprice;
         }
         return -1;

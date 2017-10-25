@@ -5,8 +5,16 @@ package ru.job4j.chesstest;
  */
 public class Board {
 
-    Figure whiteFigures[] = new Figure[16];
-    Figure blackFigures[] = new Figure[16];
+    private Figure[] whiteFigures = new Figure[16];
+    private Figure[] blackFigures = new Figure[16];
+
+    public Figure[] getBlackFigures() {
+        return blackFigures;
+    }
+
+    public Figure[] getWhiteFigures() {
+        return whiteFigures;
+    }
 
     /**.
      * Constructor
@@ -21,7 +29,7 @@ public class Board {
     /**.
      * Init chess board wit
      */
-    void init(){
+    void init() {
         String black = "black", white = "white";
 
         // white Figures
@@ -47,9 +55,9 @@ public class Board {
      * @throws OccupiedWayException way is occupied
      * @throws FigureNotFoundException no figure to move
      */
-    boolean move(Cell source, Cell dest) throws ImpossibleMoveException, OccupiedWayException, FigureNotFoundException{
+    boolean move(Cell source, Cell dest) throws ImpossibleMoveException, OccupiedWayException, FigureNotFoundException {
 
-        Figure f = getfigure(source.pos);
+        Figure f = getfigure(source.getPos());
 
         if (f == null) {
             throw new FigureNotFoundException("Figure not found");
@@ -58,13 +66,13 @@ public class Board {
         Cell[] path = f.way(dest);
 
         if (path == null) {
-            throw new ImpossibleMoveException(String.format("Impossible move %s to %s", f.name, dest.pos));
+            throw new ImpossibleMoveException(String.format("Impossible move %s to %s", f.getName(), dest.getPos()));
         }
         for (Cell c: path) {
-            f = getfigure(c.pos);
+            f = getfigure(c.getPos());
             if (f != null) {
                 throw new OccupiedWayException(String.format("Way occupied by %s %s on %s",
-                        f.color, f.name, c.pos));
+                        f.getColor(), f.getName(), c.getPos()));
             }
         }
         return true;
@@ -72,12 +80,12 @@ public class Board {
 
     Figure getfigure(String pos) {
         for (Figure f: whiteFigures) {
-            if ( f != null && f.position.pos.equals(pos)) {
+            if (f != null && f.getPosition().getPos().equals(pos)) {
                 return f;
             }
         }
         for (Figure f: blackFigures) {
-            if (f != null && f.position.pos.equals(pos)) {
+            if (f != null && f.getPosition().getPos().equals(pos)) {
                 return f;
             }
         }
@@ -86,7 +94,7 @@ public class Board {
     Figure step(String source, String destination) {
         Cell src = new Cell(source);
         Cell dst = new Cell(destination);
-        if (move(src, dst) == true) {
+        if (move(src, dst)) {
             Figure f = getfigure(source);
             return f.clone(dst);
         }

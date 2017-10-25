@@ -219,7 +219,7 @@ class Diagnose {
     /**.
      *
      */
-    String description;
+    private String description;
 
     /**.
      *

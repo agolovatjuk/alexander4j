@@ -16,28 +16,28 @@ public class Pawn extends Figure {
 
     @Override
     Pawn clone(Cell cell) {
-        return new Pawn(this.name, cell, this.color);
+        return new Pawn(this.getName(), cell, this.getColor());
     }
 
     @Override
     Cell[] way(Cell dest) throws ImpossibleMoveException {
-        Cell src = this.position;
+        Cell src = this.getPosition();
         int maxmove = 0;
         Cell[] path;
 
-        int flag = this.color.equals("white") ? 1 : -1;
+        int flag = this.getColor().equals("white") ? 1 : -1;
 
-        if ((src.digit == 1 | src.digit == 6) & src.digit + 2 * flag == dest.digit) {
+        if ((src.getDigit() == 1 | src.getDigit() == 6) & src.getDigit() + 2 * flag == dest.getDigit()) {
             maxmove += 2;
-        } else if (src.digit + 1 * flag == dest.digit) {
+        } else if (src.getDigit() + 1 * flag == dest.getDigit()) {
             maxmove += 1;
         } else {
             throw new ImpossibleMoveException(String.format("Impossible move %s Pawn from %s to %s",
-                    this.color, src.pos, dest.pos));
+                    this.getColor(), src.getPos(), dest.getPos()));
         }
         path = new Cell[maxmove];
         for (int i = 0; i < maxmove; i++) {
-            path[i] = new Cell(src.letter, src.digit + (i + 1) * flag);
+            path[i] = new Cell(src.getLetter(), src.getDigit() + (i + 1) * flag);
         }
         return path;
     }
