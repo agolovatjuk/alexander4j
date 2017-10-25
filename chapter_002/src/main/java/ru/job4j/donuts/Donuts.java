@@ -1,5 +1,7 @@
 package ru.job4j.donuts;
 
+import java.util.Arrays;
+
 /**.
  * Автомат по продаже пончиков на всю предложенную сумму продаёт пончики, выдаёт сдачу
  * если кончились пончики, либо их не хватает на всю сумму, либо не может выдать сдачу, сообщает об этом
@@ -31,6 +33,8 @@ public class Donuts {
      */
     private int coin10 = 0;
 
+    private int[] coins;
+
     /**.
      * Конструктор класса
      * @param donutsleft int
@@ -47,6 +51,7 @@ public class Donuts {
         this.coin2 = coin2;
         this.coin5 = coin5;
         this.coin10 = coin10;
+        coins = new int[] {coin10, coin5, coin2, coin1};
     }
 
     /**.
@@ -74,58 +79,78 @@ public class Donuts {
         this.donutsleft = this.donutsleft - money / this.donutprice;
     }
 
-    /**.
-     * Выдать сдачу
-     * @param money int
-     * @return int
-     */
+//    /**.
+//     * Выдать сдачу
+//     * @param money int
+//     * @return int
+//     */
+//    int getcharge(int money) {
+//        /**.
+//         * считаем сдачу
+//         */
+//        int charge = money % this.donutprice;
+//        /**.
+//         * сколько в этой сдаче монет разного достоинства
+//         * с учётом их наличия в автомате
+//         */
+//        int c10 = 0, c5 = 0, c2 = 0, c1 = 0;
+//
+//        if (charge >= 10 & coin10 >= charge / 10) {
+//            c10 = Math.min(charge / 10, coin10);
+//            charge = charge - 10 * c10;
+//        }
+//        if (charge >= 5 & coin5 >= charge / 5) {
+//            c5 = Math.min(charge / 5, coin5);
+//            charge = charge - 5 * c5;
+//        }
+//        if (charge >= 2 & coin2 > 0) {
+//            c2 = Math.min(charge / 2, coin2);
+//            charge = charge - 2 * c2;
+//        }
+//        if (charge >= 1 & coin1 >= charge) {
+//            c1 = charge;
+//            charge = 0;
+//        }
+//
+//        if (charge != 0) {
+//            return -1;
+//        } else {
+//            coin1 = coin1 - c1;
+//            coin2 = coin2 - c2;
+//            coin5 = coin5 - c5;
+//            coin10 = coin10 - c10;
+//            return c10 * 10 + c5 * 5 + c2 * 2 + c1;
+//        }
+//    }
+
     int getcharge(int money) {
-        /**.
-         * считаем сдачу
-         */
         int charge = money % this.donutprice;
-        /**.
-         * сколько в этой сдаче монет разного достоинства
-         * с учётом их наличия в автомате
-         */
-        int c10 = 0, c5 = 0, c2 = 0, c1 = 0;
+        int[] nominal = {10, 5, 2, 1};
+        int[] tmp_coins = new int[4];
+        System.arraycopy(this.coins, 0, tmp_coins, 0, 4);
 
-        if (charge >= 10 & coin10 >= charge / 10) {
-            c10 = Math.min(charge / 10, coin10);
-            charge = charge - 10 * c10;
+        for (int i = 0; charge > 0 && i < 4; i++) {
+            if (tmp_coins[i] > 0 && charge >= nominal[i]) {
+                int cnt_coins = Math.min(tmp_coins[i], charge / nominal[i]);
+                tmp_coins[i] -= cnt_coins;
+                charge -= cnt_coins * nominal[i];
+            }
         }
-        if (charge >= 5 & coin5 >= charge / 5) {
-            c5 = Math.min(charge / 5, coin5);
-            charge = charge - 5 * c5;
+        if (charge == 0) {
+            this.coins = tmp_coins;
+            return money % this.donutprice;
         }
-        if (charge >= 2 & coin2 > 0) {
-            c2 = Math.min(charge / 2, coin2);
-            charge = charge - 2 * c2;
-        }
-        if (charge >= 1 & coin1 >= charge) {
-            c1 = charge;
-            charge = 0;
-        }
-
-        if (charge != 0) {
-            return -1;
-        } else {
-            coin1 = coin1 - c1;
-            coin2 = coin2 - c2;
-            coin5 = coin5 - c5;
-            coin10 = coin10 - c10;
-            return c10 * 10 + c5 * 5 + c2 * 2 + c1;
-        }
+        return -1;
     }
-
     /**.
      *
      * @param args String[]
      */
     public static void main(String[] args) {
         int charge, donuts;
-        int donutprice = 6;
-        int money = 15;
+//        int donutprice = 26;
+        int donutprice = 33;
+        int money = 150;
         Donuts d = new Donuts(100, donutprice, 50, 25, 10, 5);
 
         while (d.donutsleft > 0) {
@@ -144,10 +169,11 @@ public class Donuts {
                 break;
             }
         }
-        System.out.println(String.format("Продано: %d", d.donutsleft));
+        System.out.println(String.format("Осталось: %d", d.donutsleft));
         System.out.println(String.format("Осталось_10: %d", d.coin10));
         System.out.println(String.format("Осталось_5: %d", d.coin5));
         System.out.println(String.format("Осталось_2: %d", d.coin2));
         System.out.println(String.format("Осталось_1: %d", d.coin1));
+        System.out.println(String.format("Осталось_1: %s", Arrays.toString(d.coins)));
     }
 }
