@@ -11,8 +11,8 @@ public class Crosses {
     }
 
     public Crosses(int n, int w) {
-        board = new char[n][n];
-        winline = w;
+        this(n); // call Crosses(n)
+        this.winline = w;
     }
 
     public boolean putA(int i, int j, char a) {
@@ -107,8 +107,8 @@ public class Crosses {
         }
     }
 
-    public void game(int win) {
-        this.winline = win;
+    public void game(int w) {
+        this.winline = w;
         this.game();
     }
 
@@ -137,20 +137,19 @@ public class Crosses {
     public static void main(String[] args) {
 
         int n = 8; // board 8x8
-        int winner = 3; // 3 is winner
-        System.out.print("Enter board size[NxN] N:");
+        int winline = 3; // 3 symbols per line wins
         Scanner scanner = new Scanner(System.in);
+
+        System.out.print("Enter board size[NxN] N(default 8):");
         String answer = scanner.nextLine();
-        if (answer.length() != 0) {
-            n = Integer.parseInt(answer);
-        }
-        Crosses c = new Crosses(n);
+        n = (answer.length() == 0) ? n : Integer.parseInt(answer);
+
         System.out.print("Enter how much symbols per line to win(default 3):");
         answer = scanner.nextLine();
-        if (answer.length() != 0) {
-            winner = Integer.parseInt(answer);
-        }
-        c.game(winner);
+        winline = (answer.length() == 0) ? winline : Integer.parseInt(answer);
+
+        Crosses c = new Crosses(n, winline);
+        c.game();
     }
 
 }
