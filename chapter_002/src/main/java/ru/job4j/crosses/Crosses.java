@@ -1,35 +1,34 @@
 package ru.job4j.crosses;
 
+import java.util.Scanner;
+
 public class Crosses {
-    int win;
     char[][] board;
+    int winline = 3;
 
     public Crosses(int n) {
         board = new char[n][n];
-        win = 3;
     }
 
     public Crosses(int n, int w) {
         board = new char[n][n];
-        win = w;
+        winline = w;
     }
 
     public boolean putA(int i, int j, char a) {
-        if (board[i][j] == '\u0000') {
-            board[i][j] = a;
+        try {
+            if (board[i][j] == '\u0000') {
+                board[i][j] = a;
+            }
+        } catch (ArrayIndexOutOfBoundsException e) {
+            return false;
         }
-        if (checkWinA(i, j, a)) {
-            return true;
-        }
-        return false;
+        return checkWinnerA(i, j, a);
     }
 
     public boolean getA(int i, int j, char a) {
         try {
-            if (board[i][j] == a) {
-                return true;
-            }
-            return false;
+            return (board[i][j] == a);
         } catch (ArrayIndexOutOfBoundsException e) {
             return false;
         }
@@ -91,12 +90,12 @@ public class Crosses {
         return cnt;
     }
 
-    public boolean checkWinA(int i, int j, char a) {
+    public boolean checkWinnerA(int i, int j, char a) {
         int vert = getVert(i, j, a);
         int horiz = getHoriz(i, j, a);
         int line45 = getLine45(i, j, a);
         int line135 = getLine135(i, j, a);
-        if (vert >= win || horiz >= win || line45 >= win || line135 >= win) {
+        if (vert >= winline || horiz >= winline || line45 >= winline || line135 >= winline) {
             return true;
         }
         return false;
@@ -128,34 +127,50 @@ public class Crosses {
         }
     }
 
-    public static void main(String[] args) {
-        int n = 10; // board 10x10
-        boolean w;
-        Crosses c = new Crosses(n);
-        w = c.putA(1, 2, 'Y');
-        w = c.putA(1, 4, 'X');
-        w = c.putA(1, 3, 'Y');
-        w = c.putA(2, 4, 'X');
-        c.display();
-        if (!w) {
-            System.out.println(String.format("X is not Winner"));
-        }
-        w = c.putA(1, 1, 'Y');
-        if (w) {
-            System.out.println(String.format("Y is Winner"));
-        }
-        w = c.putA(3, 4, 'X');
-        if (w) {
-            System.out.println(String.format("X is Winner now"));
-        }
+    public void game(int win) {
+        this.winline = win;
+        this.game();
+    }
 
-        w = c.putA(6, 3, 'Z');
-        w = c.putA(7, 4, 'Z');
-        w = c.putA(5, 2, 'Z');
-        if (w) {
-            System.out.println(String.format("Z is Winner now"));
+    public void game() {
+        Scanner scanner = new Scanner(System.in);
+        boolean winner = false;
+        char symb = '\u0000';
+        int p = (int) Math.log10(board.length) + 1;
+        while (!winner) {
+            display();
+            System.out.print("Enter your Symbol, row number, col number [for example: x34] or Ctrl-C to exit:");
+            String answer = scanner.nextLine();
+            try {
+                symb = answer.charAt(0);
+                int row = Integer.parseInt(answer.substring(1, p + 1));
+                int col = Integer.parseInt(answer.substring(p + 1));
+                winner = putA(row, col, symb);
+            } catch (NumberFormatException e) {
+                System.out.println("Error in enter data, next try...");
+            }
         }
-        c.display();
+        display();
+        System.out.printf("%s is winner, good by%n", symb);
+    }
+
+    public static void main(String[] args) {
+
+        int n = 8; // board 8x8
+        int winner = 3; // 3 is winner
+        System.out.print("Enter board size[NxN] N:");
+        Scanner scanner = new Scanner(System.in);
+        String answer = scanner.nextLine();
+        if (answer.length() != 0) {
+            n = Integer.parseInt(answer);
+        }
+        Crosses c = new Crosses(n);
+        System.out.print("Enter how much symbols per line to win(default 3):");
+        answer = scanner.nextLine();
+        if (answer.length() != 0) {
+            winner = Integer.parseInt(answer);
+        }
+        c.game(winner);
     }
 
 }
