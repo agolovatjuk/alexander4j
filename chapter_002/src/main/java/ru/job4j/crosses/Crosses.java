@@ -102,14 +102,41 @@ public class Crosses {
         return false;
     }
 
+    private void display() {
+        int p = (int) Math.log10(this.board.length) + 1;
+        String fs = "%" + p + "s|";
+        String fd = "%0" + p + "d|";
+        String t = "_";
+        for (int k = 0; k < p - 1; k++) {
+            t = t + "_";
+        }
+        System.out.printf(fs, " ");
+        for (int i = 0; i < this.board.length; i++) {
+            System.out.printf(fd, i);
+        }
+        System.out.println();
+        for (int i = 0; i < this.board.length; i++) {
+            System.out.printf(fd, i);
+            for (int j = 0; j < this.board[i].length; j++) {
+                if (board[i][j] == '\u0000') {
+                    System.out.printf("%s|", t);
+                } else {
+                    System.out.printf(fs, this.board[i][j]);
+                }
+            }
+            System.out.println();
+        }
+    }
+
     public static void main(String[] args) {
         int n = 10; // board 10x10
         boolean w;
-        Crosses c = new Crosses(10);
+        Crosses c = new Crosses(n);
         w = c.putA(1, 2, 'Y');
         w = c.putA(1, 4, 'X');
         w = c.putA(1, 3, 'Y');
         w = c.putA(2, 4, 'X');
+        c.display();
         if (!w) {
             System.out.println(String.format("X is not Winner"));
         }
@@ -128,5 +155,7 @@ public class Crosses {
         if (w) {
             System.out.println(String.format("Z is Winner now"));
         }
+        c.display();
     }
+
 }
