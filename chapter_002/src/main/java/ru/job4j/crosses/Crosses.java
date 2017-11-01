@@ -36,57 +36,37 @@ public class Crosses {
 
     int getHoriz(int i, int j, char a) {
         int cnt = 0;
-        int x = j;
-        while (getA(i, x--, a)) {
-            cnt++;
-        }
-        x = j;
-        while (getA(i, ++x, a)) {
-            cnt++;
-        }
+        for (int x = j; getA(i, x--, a);) {
+            cnt++; }
+        for (int x = j; getA(i, ++x, a);) {
+            cnt++; }
         return cnt;
     }
 
     int getVert(int i, int j, char a) {
         int cnt = 0;
-        int y = i;
-        while (getA(y--, j, a)) {
-            cnt++;
-        }
-        y = i;
-        while (getA(++y, j, a)) {
-            cnt++;
-        }
+        for (int y = i; getA(y--, j, a);) {
+            cnt++; }
+        for (int y = i; getA(++y, j, a);) {
+            cnt++; }
         return cnt;
     }
 
     int getLine45(int i, int j, char a) {
         int cnt = 0;
-        int x = j;
-        int y = i;
-        while (getA(y--, x--, a)) {
-            cnt++;
-        }
-        x = j;
-        y = i;
-        while (getA(++y, ++x, a)) {
-            cnt++;
-        }
+        for (int x = j, y = i; getA(y--, x--, a);) {
+            cnt++; }
+        for (int x = j, y = i; getA(++y, ++x, a);) {
+            cnt++; }
         return cnt;
     }
 
     int getLine135(int i, int j, char a) {
         int cnt = 0;
-        int x = j;
-        int y = i;
-        while (getA(y++, x--, a)) {
-            cnt++;
-        }
-        x = j;
-        y = i;
-        while (getA(--y, ++x, a)) {
-            cnt++;
-        }
+        for (int x = j, y = i; getA(y++, x--, a);) {
+            cnt++; }
+        for (int x = j, y = i; getA(--y, ++x, a);) {
+            cnt++; }
         return cnt;
     }
 
