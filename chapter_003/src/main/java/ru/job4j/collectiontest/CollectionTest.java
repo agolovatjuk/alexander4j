@@ -17,26 +17,18 @@ public class CollectionTest {
             this.data[i] = String.valueOf(r.nextInt());
         }
         long t = clock.millis();
-        for (String s: this.data) {
-            collection.add(s);
-        }
-//        this.data.addAll(Arrays.asList(testdata));
+//        for (String s: this.data) {
+//            collection.add(s);
+//        }
+        collection.addAll(Arrays.asList(this.data));
         return clock.millis() - t;
     }
 
     public long delete(Collection<String> collection, int amount) {
-        String[] idx = new String[amount];
-        System.arraycopy(this.data, 0, idx, 0, amount);
-//        Random r = new Random();
-//        for (int i = 0; i < amount; i++) {
-//            idx[i] = r.nextInt(this.data.length);
-//        }
-
         Clock clock = Clock.systemUTC();
         long t = clock.millis();
         for (int i = 0; i < amount; i++) {
-//            collection.remove(this.data[idx[i]]);
-            collection.remove(idx[i]);
+            collection.remove(this.data[i]);
         }
         return clock.millis() - t;
     }
