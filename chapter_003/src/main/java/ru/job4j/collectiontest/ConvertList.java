@@ -9,7 +9,7 @@ public class ConvertList {
 
     public List<Integer> tolist(int[][] array) {
 //        {{1, 2, 3} {4, 5, 6} {7, 0 ,0}} => (1,2,3,4,5,6,7)
-        ArrayList<Integer> lst = new ArrayList<>();
+        List<Integer> lst = new ArrayList<>();
 
         for (int x[]: array) {
             for (int i: x) {
@@ -40,14 +40,13 @@ public class ConvertList {
         for (int x[]: a) {
             System.out.printf("%s ", Arrays.toString(x));
         }
-        ArrayList<Integer> nlist = (ArrayList<Integer>) tolist(a);
-        System.out.printf("\n%s\n\n", nlist);
+        System.out.printf("\n%s\n\n", tolist(a));
     }
 
     public static void main(String[] args) {
         ConvertList cl = new ConvertList();
 
-        ArrayList<Integer> alist = new ArrayList<>();
+        List<Integer> alist = new ArrayList<>();
         for (int i = 1; i < 8; i++) {
             alist.add(i);
         }
