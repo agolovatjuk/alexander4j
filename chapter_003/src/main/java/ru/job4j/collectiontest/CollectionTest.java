@@ -1,7 +1,12 @@
 package ru.job4j.collectiontest;
 
 import java.time.Clock;
-import java.util.*;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.LinkedList;
+import java.util.ArrayList;
+import java.util.TreeSet;
+import java.util.Random;
 
 public class CollectionTest {
     private String[] data;
