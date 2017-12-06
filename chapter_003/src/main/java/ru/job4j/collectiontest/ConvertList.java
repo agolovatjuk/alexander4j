@@ -8,7 +8,6 @@ import java.util.List;
 public class ConvertList {
 
     public List<Integer> tolist(int[][] array) {
-//        {{1, 2, 3} {4, 5, 6} {7, 0 ,0}} => (1,2,3,4,5,6,7)
         List<Integer> lst = new ArrayList<>();
 
         for (int[] x: array) {
@@ -20,7 +19,6 @@ public class ConvertList {
     }
 
     public int[][] toArray(List<Integer> list, int rows) {
-//        (1,2,3,4,5,6,7) => {{1, 2, 3} {4, 5, 6} {7, 0 ,0}}
         int cols = list.size() / rows;
         int rem  = list.size() % rows;
         cols = (rem > 0) ? cols + 1 : cols;
@@ -30,7 +28,6 @@ public class ConvertList {
 
         for (int x: list) {
             a[cnt / cols][cnt++ % cols] = x;
-//            cnt++;
         }
         return a;
     }
