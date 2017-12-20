@@ -18,6 +18,16 @@ public class ConvertList {
         return lst;
     }
 
+    public List<Integer> convert(List <int[]> list) {
+        List<Integer> data = new ArrayList<>();
+        for (int[] x: list) {
+            for (int y: x) {
+                data.add(y);
+            }
+        }
+        return data;
+    }
+
     public int[][] toArray(List<Integer> list, int rows) {
         int cols = list.size() / rows;
         int rem  = list.size() % rows;

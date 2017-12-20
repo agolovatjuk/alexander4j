@@ -7,6 +7,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import static org.hamcrest.core.Is.is;
+import static org.hamcrest.core.IsEqual.equalTo;
 import static org.junit.Assert.assertThat;
 
 public class ConvertListTest {
@@ -55,8 +56,18 @@ public class ConvertListTest {
 
         data = new int[][]{{1, 2, 3, 4}, {5, 6, 7}};
         assertThat(cl.tolist(data), is(expected));
+    }
 
+    @Test
+    public void whenConvertToList() {
+        List<int[]> list = new ArrayList<>();
+        list.add(new int[]{1, 2});
+        list.add(new int[]{3, 4, 5, 6});
 
+        ConvertList convertList = new ConvertList();
+        List<Integer> result = convertList.convert(list);
+        List<Integer> expected = Arrays.asList(1,2,3,4,5,6);
 
+        assertThat(result, equalTo(expected));
     }
 }
