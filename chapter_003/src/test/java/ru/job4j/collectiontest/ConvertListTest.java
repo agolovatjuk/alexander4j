@@ -66,7 +66,7 @@ public class ConvertListTest {
 
         ConvertList convertList = new ConvertList();
         List<Integer> result = convertList.convert(list);
-        List<Integer> expected = Arrays.asList(1,2,3,4,5,6);
+        List<Integer> expected = Arrays.asList(1, 2, 3, 4, 5, 6);
 
         assertThat(result, equalTo(expected));
     }

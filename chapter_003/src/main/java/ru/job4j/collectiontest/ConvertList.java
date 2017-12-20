@@ -18,7 +18,7 @@ public class ConvertList {
         return lst;
     }
 
-    public List<Integer> convert(List <int[]> list) {
+    public List<Integer> convert(List<int[]> list) {
         List<Integer> data = new ArrayList<>();
         for (int[] x: list) {
             for (int y: x) {
