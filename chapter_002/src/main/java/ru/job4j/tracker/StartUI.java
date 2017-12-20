@@ -66,8 +66,12 @@ public class StartUI {
             @Override
             public void execute(Input input, Tracker tracker) {
                 Item[] result = tracker.findAll();
-                for (Item r: result) {
-                    System.out.printf("%s, %s, %s\n", r.getId(), r.getName(), r.getDescription());
+                if (result.length > 0) {
+                    for (Item r : result) {
+                        System.out.printf("%s, %s, %s\n", r.getId(), r.getName(), r.getDescription());
+                    }
+                } else {
+                    System.out.println("No data");
                 }
             }
         };
@@ -122,7 +126,7 @@ public class StartUI {
             public void execute(Input input, Tracker tracker) {
                 String key = input.ask("Enter item name:");
                 Item[] result = tracker.findByName(key);
-                if (result[0] != null) {
+                if (result.length > 0) {
                     for (Item r: result) {
                         System.out.printf("%s, %s, %s\n", r.getId(), r.getName(), r.getDescription());
                     }

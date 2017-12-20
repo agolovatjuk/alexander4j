@@ -101,6 +101,7 @@ public class TrackerTest {
         t.add(item4);
 
         Item[] result = t.findByName("test3");
+//        Item[] resul2 = t.findByName("test333");
 
         assertThat(result[0].getName(), is(item1.getName()));
         assertThat(result[1].getName(), is(item3.getName()));

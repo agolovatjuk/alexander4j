@@ -1,6 +1,8 @@
 package ru.job4j.tracker;
 
 
+import java.util.ArrayList;
+
 /**.
  *
  */
@@ -16,7 +18,7 @@ public class MenuTracker {
     /**.
      *
      */
-    private UserAction[] actions = new UserAction[7];
+    private ArrayList<UserAction> actions = new ArrayList<>();
     /**.
      *
      */
@@ -36,14 +38,15 @@ public class MenuTracker {
      * @param action UserAction
      */
     public void addAction(UserAction action) {
-        actions[position++] = action;
+//        actions[position++] = action;
+        actions.add(action);
     }
     /**.
      *
      * @return UserAction[]
      */
     public UserAction[] getActions() {
-        return this.actions;
+        return this.actions.toArray(new UserAction[this.actions.size()]);
     }
 
     /**.
@@ -51,7 +54,8 @@ public class MenuTracker {
      * @param key int
      */
     public void select(int key) {
-        this.actions[key].execute(this.input, this.tracker);
+//        this.actions[key].execute(this.input, this.tracker);
+        this.actions.get(key).execute(this.input, this.tracker);
     }
 
     /**.
