@@ -5,28 +5,6 @@ import java.util.List;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-class User {
-    private int id;
-    private String name;
-    private String city;
-
-    User(int id, String name, String city) {
-        this.id = id;
-        this.name = name;
-        this.city = city;
-    }
-
-    public int getId() {
-        return this.id;
-    }
-
-    @Override
-    public String toString() {
-        return String.format("Id:%d, Name:%s, City:%s", this.id, this.name, this.city);
-    }
-
-}
-
 class UserConvert {
     public Map<Integer, User> process(List<User> list) {
         Map<Integer, User> data = new HashMap<>();
@@ -39,8 +17,7 @@ class UserConvert {
     public static void main(String[] args) {
         List<User> userlist = new ArrayList<>();
         for (int i = 0; i < 10; i++) {
-            User u = new User(i, "Name_" + i * 10, "City_" + i * 100);
-            userlist.add(u);
+            userlist.add(new User(i, String.format("Name_%d", i * 10), String.format("City_%d", i * 100)));
         }
         UserConvert uc = new UserConvert();
         Map usermap = uc.process(userlist);
