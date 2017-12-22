@@ -18,14 +18,13 @@ public class SortUserTest {
         List<User> users = new ArrayList<>();
         Random rnd = new Random();
         for (int i = 0; i < 10; i++) {
-            int x = rnd.nextInt(100);
-            users.add(new User(format("Name_%d", x), x));
+            users.add(new User(format("Name_%d", rnd.nextInt(100)), rnd.nextInt(100)));
         }
         Set<User> userset = new SortUser().sort(users);
         List<User> usr = new ArrayList<>(userset);
         for (int i = 1; i < usr.size(); i++) {
             assertThat(usr.get(i - 1).compareTo(usr.get(i)), is(-1));
         }
-        System.out.println(usr);
+//        System.out.println(usr);
     }
 }
