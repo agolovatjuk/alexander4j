@@ -45,30 +45,34 @@ public class Transfer {
          *- метод для перечисления денег с одного счёта на другой счёт:
          если счёт не найден или не хватает денег на счёте srcAccount (с которого переводят) должен вернуть false.
          */
-        List<Account> srcAccounts  = getUserAccounts(srcPassport);
-        List<Account> destAccounts = getUserAccounts(destPassport);
+        List<Account> srcAccounts = getUserAccounts(srcPassport);
+        List<Account> dstAccounts = getUserAccounts(destPassport);
 
-        for (Account srcAcc: srcAccounts) {
-            if (srcAcc.getRequisites().equals(srcRequisite) && srcAcc.getValue() >= amount) {
-                for (Account dstAcc: destAccounts) {
-                    if (dstAcc.getRequisites().equals(dstRequisite)) {
-                        dstAcc.setValue(dstAcc.getValue() + amount);
-                        srcAcc.setValue(srcAcc.getValue() - amount);
-                        return true;
-                    }
-                }
-            }
+        if (srcAccounts == null | dstAccounts == null) {
+            return false;
         }
-        return false;
+
+        int srcIdx = srcAccounts.indexOf(new Account(srcRequisite));
+        int dstIdx = dstAccounts.indexOf(new Account(dstRequisite));
+
+        if (srcIdx == -1 | dstIdx == -1) { // bad Account
+            return false;
+        }
+        if (srcAccounts.get(srcIdx).getValue() < amount) { // not enough money
+            return false;
+        }
+        srcAccounts.get(srcIdx).setValue(srcAccounts.get(srcIdx).getValue() - amount);
+        dstAccounts.get(dstIdx).setValue(dstAccounts.get(dstIdx).getValue() + amount);
+        return true;
     }
 
-    @Override
-    public String toString() {
-        final StringBuffer sb = new StringBuffer("Transfer{");
-        sb.append("tr=").append(tr);
-        sb.append('}');
-        return sb.toString();
-    }
+//    @Override
+//    public String toString() {
+//        final StringBuffer sb = new StringBuffer("Transfer{");
+//        sb.append("tr=").append(tr);
+//        sb.append('}');
+//        return sb.toString();
+//    }
 
 //    public static void main(String[] args) {
 //        User u1 = new User("John", "007");
