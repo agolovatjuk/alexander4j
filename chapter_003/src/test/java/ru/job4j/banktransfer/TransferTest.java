@@ -6,6 +6,8 @@ import java.util.List;
 
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.assertFalse;
 
 public class TransferTest {
 
@@ -101,6 +103,8 @@ public class TransferTest {
     @Test
     public void transferMoney() {
         Transfer t = new Transfer();
+        boolean result;
+
         User u1 = new User("Name01", "passport001");
         User u2 = new User("Name02", "passport002");
         t.addUser(u1);
@@ -111,8 +115,8 @@ public class TransferTest {
         t.addAccountToUser("passport002", new Account("acc003"));
 
         // добавили одному, сняли с другого
-        t.transferMoney("passport001", "acc003", "passport002", "acc003", 20);
-
+        result = t.transferMoney("passport001", "acc003", "passport002", "acc003", 20);
+        assertTrue(result);
         Account acc1 = t.getUserAccounts("passport002").get(0);
         assertThat(acc1.getValue(), is(20.0));
         assertThat(acc1.getRequisites(), is("acc003"));
@@ -120,5 +124,12 @@ public class TransferTest {
         List<Account> acc2 = t.getUserAccounts("passport001");
         Account acc = acc2.get(acc2.indexOf(new Account("acc003")));
         assertThat(acc.getValue(), is(280.0));
+
+        // not enough money
+        result = t.transferMoney("passport001", "acc003", "passport002", "acc003", 500);
+        assertFalse(result);
+        // not account
+        result = t.transferMoney("passport001", "acc00", "passport002", "acc003", 500);
+        assertFalse(result);
     }
 }
