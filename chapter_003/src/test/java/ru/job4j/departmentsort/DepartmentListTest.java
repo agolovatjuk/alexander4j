@@ -7,7 +7,7 @@ import static org.hamcrest.core.Is.is;
 
 public class DepartmentListTest {
     @Test
-    public void whenAddDepartmentThen(){
+    public void whenAddDepartmentThen() {
         DepartmentList dp = new DepartmentList();
         Department[] d = new Department[2];
         String result, expected;
@@ -29,7 +29,7 @@ public class DepartmentListTest {
     }
 
     @Test
-    public void whenSortThenReverseThen(){
+    public void whenSortThenReverseThen() {
         DepartmentList dp = new DepartmentList();
         Department[] d = new Department[7];
         String result, expected;
@@ -48,13 +48,13 @@ public class DepartmentListTest {
 
         final String line = System.getProperty("line.separator");
         result = dp.getSort();
-        expected = String.format("K1%1$sK1\\SK1%1$sK1\\SK1\\SSK1%1$sK1\\SK1\\SSK2%1$sK1\\SK2%1$s" +
-                "K2%1$sK2\\SK1%1$sK2\\SK1\\SSK1%1$sK2\\SK1\\SSK2%1$s", line);
+        expected = String.format("K1%1$sK1\\SK1%1$sK1\\SK1\\SSK1%1$sK1\\SK1\\SSK2%1$sK1\\SK2%1$s"
+                + "K2%1$sK2\\SK1%1$sK2\\SK1\\SSK1%1$sK2\\SK1\\SSK2%1$s", line);
         assertThat(result, is(expected));
 
         result = dp.getReverse();
-        expected = String.format("K2%1$sK2\\SK1%1$sK2\\SK1\\SSK2%1$sK2\\SK1\\SSK1%1$s" +
-                "K1%1$sK1\\SK2%1$sK1\\SK1%1$sK1\\SK1\\SSK2%1$sK1\\SK1\\SSK1%1$s", line);
+        expected = String.format("K2%1$sK2\\SK1%1$sK2\\SK1\\SSK2%1$sK2\\SK1\\SSK1%1$s"
+               + "K1%1$sK1\\SK2%1$sK1\\SK1%1$sK1\\SK1\\SSK2%1$sK1\\SK1\\SSK1%1$s", line);
         assertThat(result, is(expected));
     }
 }

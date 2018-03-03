@@ -1,6 +1,6 @@
 package ru.job4j.departmentsort;
 
-public class Department implements Comparable<Department>{
+public class Department implements Comparable<Department> {
 
     public String code;
 
