@@ -11,7 +11,8 @@ public class EvenNumbersIterator implements Iterator<Integer> {
         this.num = num;
     }
 
-    private boolean nextEven() {
+    @Override
+    public boolean hasNext() {
         while (pos < num.length) {
             if (num[pos] % 2 == 0) {
                 return true;
@@ -23,13 +24,8 @@ public class EvenNumbersIterator implements Iterator<Integer> {
     }
 
     @Override
-    public boolean hasNext() {
-        return nextEven();
-    }
-
-    @Override
     public Integer next() {
-        if (!nextEven()) {
+        if (!hasNext()) {
             throw new NoSuchElementException();
         }
         return num[pos++];

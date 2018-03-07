@@ -24,7 +24,8 @@ public class PrimeIterator implements Iterator<Integer> {
         return true;
     }
 
-    private boolean nextPrime() {
+    @Override
+    public boolean hasNext() {
         while (this.pos < num.length) {
             if (isPrime(num[pos])) {
                 return true;
@@ -36,13 +37,8 @@ public class PrimeIterator implements Iterator<Integer> {
     }
 
     @Override
-    public boolean hasNext() {
-        return nextPrime();
-    }
-
-    @Override
     public Integer next() {
-        if (!nextPrime()) {
+        if (!hasNext()) {
             throw new NoSuchElementException();
         }
         return num[pos++];
