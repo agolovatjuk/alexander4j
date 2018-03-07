@@ -4,6 +4,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.util.Iterator;
+import java.util.NoSuchElementException;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
@@ -17,12 +18,13 @@ public class JaggedArrayIteratorTest {
         it = new MatrixIterator(new int[][]{{1}, {3, 4}, {7}});
     }
 
-    @Test
+    @Test(expected = NoSuchElementException.class)
     public void testsThatNextMethodDoesntDependsOnPriorHasNextInvocation() {
         assertThat(it.next(), is(1));
         assertThat(it.next(), is(3));
         assertThat(it.next(), is(4));
         assertThat(it.next(), is(7));
+        it.next();
     }
 
     @Test

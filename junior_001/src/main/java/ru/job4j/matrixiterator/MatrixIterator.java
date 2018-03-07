@@ -4,8 +4,8 @@ import java.util.Iterator;
 import java.util.NoSuchElementException;
 
 public class MatrixIterator implements Iterator<Integer> {
-    int[][] ints;
-    int row, col;
+    private int[][] ints;
+    private int row = 0, col = 0;
 
     public MatrixIterator(int[][] ints) {
         this.ints = ints;

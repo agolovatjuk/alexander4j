@@ -8,14 +8,13 @@ public class DepartmentList {
     private Set<String> depSet = new TreeSet<>();
 
     public void addDepartment(Department department) {
-        if (department == null) {
-            return;
-        }
-        depSet.add(department.code);
-        int idx = department.code.lastIndexOf("\\");
-        if (idx != -1) {
-            String parent = department.code.substring(0, idx);
-            depSet.add(parent);
+        if (department != null) {
+            depSet.add(department.code);
+            int idx = department.code.lastIndexOf("\\");
+            if (idx != -1) {
+                String parent = department.code.substring(0, idx);
+                depSet.add(parent);
+            }
         }
     }
 
@@ -43,24 +42,4 @@ public class DepartmentList {
         }
         return sb.toString();
     }
-
-//    public static void main(String[] args) {
-//        DepartmentList dp = new DepartmentList();
-//        Department[] d = new Department[7];
-//        d[0] = new Department("K1\\SK2");
-//        d[1] = new Department("K1\\SK1");
-//        d[2] = new Department("K1\\SK1\\SSK1");
-//        d[3] = new Department("K1\\SK1\\SSK2");
-//        d[4] = new Department("K2");
-//        d[5] = new Department("K2\\SK1\\SSK1");
-//        d[6] = new Department("K2\\SK1\\SSK2");
-//        for (Department department: d) {
-//            dp.addDepartment(department);
-//        }
-//
-//        String s = dp.getReverse();
-//        System.out.println(dp.getSort());
-//        System.out.println(dp.getReverse());
-//
-//    }
 }
