@@ -45,64 +45,21 @@ public class Transfer {
          *- метод для перечисления денег с одного счёта на другой счёт:
          если счёт не найден или не хватает денег на счёте srcAccount (с которого переводят) должен вернуть false.
          */
+        boolean result = false;
         List<Account> srcAccounts = getUserAccounts(srcPassport);
         List<Account> dstAccounts = getUserAccounts(destPassport);
 
-        if (srcAccounts == null | dstAccounts == null) {
-            return false;
+        if (srcAccounts != null & dstAccounts != null) {
+            int srcIdx = srcAccounts.indexOf(new Account(srcRequisite));
+            int dstIdx = dstAccounts.indexOf(new Account(dstRequisite));
+            if (srcIdx != -1 & dstIdx != -1) { // bad Account
+                if (srcAccounts.get(srcIdx).getValue() >= amount) { // not enough money
+                    srcAccounts.get(srcIdx).setValue(srcAccounts.get(srcIdx).getValue() - amount);
+                    dstAccounts.get(dstIdx).setValue(dstAccounts.get(dstIdx).getValue() + amount);
+                    result = true;
+                }
+            }
         }
-
-        int srcIdx = srcAccounts.indexOf(new Account(srcRequisite));
-        int dstIdx = dstAccounts.indexOf(new Account(dstRequisite));
-
-        if (srcIdx == -1 | dstIdx == -1) { // bad Account
-            return false;
-        }
-        if (srcAccounts.get(srcIdx).getValue() < amount) { // not enough money
-            return false;
-        }
-        srcAccounts.get(srcIdx).setValue(srcAccounts.get(srcIdx).getValue() - amount);
-        dstAccounts.get(dstIdx).setValue(dstAccounts.get(dstIdx).getValue() + amount);
-        return true;
+        return result;
     }
-
-//    @Override
-//    public String toString() {
-//        final StringBuffer sb = new StringBuffer("Transfer{");
-//        sb.append("tr=").append(tr);
-//        sb.append('}');
-//        return sb.toString();
-//    }
-
-//    public static void main(String[] args) {
-//        User u1 = new User("John", "007");
-//        User u2 = new User("Bill", "000");
-//        User u3 = new User("Pew", "009");
-//
-//        Transfer t = new Transfer();
-//        t.addUser(u1);
-//        t.addUser(u2);
-//        t.addUser(u3);
-//
-//        System.out.println(t.getUser(u1.getPassport()));
-//        t.addAccountToUser(u1.getPassport(), new Account(100, "acc_001"));
-//        t.addAccountToUser(u1.getPassport(), new Account(150, "acc_001")); // не добавит
-//        t.addAccountToUser(u1.getPassport(), new Account(200, "acc_002"));
-//        t.addAccountToUser(u1.getPassport(), new Account(300, "acc_003"));
-//        t.addAccountToUser(u2.getPassport(), new Account(0, "acc_200"));
-//        t.addAccountToUser(u2.getPassport(), new Account(0, "acc_201"));
-//        t.transferMoney(u1.getPassport(), "acc_003", u2.getPassport(), "acc_201", 50);
-//        System.out.println(t.getUserAccounts(u2.getPassport()));
-//        System.out.println(t.getUserAccounts(u1.getPassport()));
-////        u1.setPassport("008"); // если изменить поле key-объекта, участника hash, то потом будут value-проблемы
-//        u1.setName("Morgan"); // name не участвует в hash, проблем с value не будет
-////        t.addAccountToUser(u1.getPassport(), new Account(100,"acc_004")); // value не найден
-////        t.tr.forEach((k, v) -> System.out.println(k.toString() + v.toString())); // хотя тут всё хорошо
-//        t.deleteAccountFromUser("007", new Account("acc_003"));
-//        t.deleteAccountFromUser("007", new Account("acc_003")); // нет ошибки
-//        System.out.println(t.getUserAccounts(u1.getPassport()));
-//        t.tr.forEach((k, v) -> System.out.println(k.toString() + v.toString()));
-////        t.deleteUser(new User("", "007")); // hash считается по полю passport
-////        t.tr.forEach((k, v) -> System.out.println(k.toString() + v.toString()));
-//    }
 }
