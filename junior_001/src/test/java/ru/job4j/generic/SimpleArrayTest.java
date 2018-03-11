@@ -11,8 +11,8 @@ import static org.hamcrest.Matchers.is;
 
 public class SimpleArrayTest {
 
-    SimpleArray<Integer> intArr;
-    SimpleArray<String> strArr;
+    private SimpleArray<Integer> intArr;
+    private SimpleArray<String> strArr;
 
     @Before
     public void setUp() throws Exception {
@@ -43,8 +43,10 @@ public class SimpleArrayTest {
 
     @Test
     public void whenDeleteThen() {
-        intArr.delete(5);
-        strArr.delete(2);
+        Integer a = intArr.delete(5);
+        String s = strArr.delete(2);
+        assertThat(a, is(5));
+        assertThat(s, is("C"));
         assertThat(intArr.toString(), is("SimpleArray{objects=[0, 1, 2, 3, 4, 6, 7, 8, 9, null]}"));
         assertThat(strArr.toString(), is("SimpleArray{objects=[A, B, D, E, F, G, H, null, null, null]}"));
     }
