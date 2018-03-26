@@ -31,8 +31,9 @@ public class RoleStoreTest {
 
     @Test
     public void whenReplaceThen() {
-        rstore.replace("Manager001", new Role("Boss001"));
+        assertTrue(rstore.replace("Manager001", new Role("Boss001")));
         assertThat(rstore.findById("Boss001").getId(), is("Boss001"));
+        assertFalse(rstore.replace("Manager", new Role("Boss")));
         assertNull(rstore.findById("Manager001"));
 //        rstore.replace("Manager001", new User("SuperUser"));
     }

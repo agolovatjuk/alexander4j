@@ -31,8 +31,9 @@ public class UserStoreTest {
 
     @Test
     public void replace() {
-        ustore.replace("User001", new User("SuperUser"));
+        assertTrue(ustore.replace("User001", new User("SuperUser")));
         assertThat(ustore.findById("SuperUser").getId(), is("SuperUser"));
+        assertFalse(ustore.replace("NullUser", new User("Boss")));
         assertNull(ustore.findById("User001"));
 //        ustore.replace("Manager001", new Role("SuperUser"));
     }
