@@ -20,11 +20,11 @@ public class SimpleList<E> implements SimpleListInterface<E> {
     }
 
     @Override
-    public void add(E a) {
+    public void add(E value) {
         if (container.length == size) {
             resize(2 * size);
         }
-        container[size++] = a;
+        container[size++] = value;
         modCount++;
     }
 
