@@ -60,7 +60,7 @@ public class SimpleList<E> implements SimpleListInterface<E> {
 
         @Override
         public boolean hasNext() {
-            return idx < container.length;
+            return idx < size;
         }
 
         @Override

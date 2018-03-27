@@ -42,12 +42,12 @@ public class SimpleListTest {
     public void whenIteratorThen() {
         SimpleList<Integer> lst = new SimpleList<>();
 
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < 100; i++) {
             lst.add(i);
         }
 
         Iterator<Integer> it = lst.iterator();
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < 100; i++) {
             assertThat(it.next(), is(i));
         }
         it.next(); // NoSuchElementException
