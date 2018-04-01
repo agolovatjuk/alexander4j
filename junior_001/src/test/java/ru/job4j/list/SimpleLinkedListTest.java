@@ -53,4 +53,58 @@ public class SimpleLinkedListTest {
         lst.add(100);
         it.next(); // ConcurrentModificationException
     }
+
+    @Test
+    public void whenAddLastThen() {
+        // FIFO
+        SimpleLinkedList<Integer> lst = new SimpleLinkedList<>();
+        for (int i = 0; i < 10; i++) {
+            assertThat(lst.size(), is(i));
+            lst.addLast(i);
+        }
+        for (int i = 0; i < 10; i++) {
+            assertThat(lst.get(i), is(i));
+        }
+        assertThat(lst.size(), is(10));
+    }
+
+    @Test
+    public void whenAddFirstThen() {
+        //LIFO
+        SimpleLinkedList<Integer> lst = new SimpleLinkedList<>();
+        for (int i = 0; i < 10; i++) {
+            assertThat(lst.size(), is(i));
+            lst.addFirst(i);
+        }
+        for (int i = 0; i < 10; i++) {
+            assertThat(lst.get(9 - i), is(i));
+        }
+        assertThat(lst.size(), is(10));
+    }
+
+    @Test
+    public void whenRemoveFirstThen() {
+        SimpleLinkedList<Integer> lst = new SimpleLinkedList<>();
+        for (int i = 0; i < 10; i++) {
+            assertThat(lst.size(), is(i));
+            lst.addLast(i);
+        }
+        for (int i = 0; i < 10; i++) {
+            assertThat(lst.removeFirst(), is(i));
+        }
+        assertThat(lst.size(), is(0));
+    }
+
+    @Test
+    public void whenRemoveLastThen() {
+        SimpleLinkedList<Integer> lst = new SimpleLinkedList<>();
+        for (int i = 0; i < 10; i++) {
+            assertThat(lst.size(), is(i));
+            lst.addFirst(i);
+        }
+        for (int i = 0; i < 10; i++) {
+            assertThat(lst.removeLast(), is(i));
+        }
+        assertThat(lst.size(), is(0));
+    }
 }

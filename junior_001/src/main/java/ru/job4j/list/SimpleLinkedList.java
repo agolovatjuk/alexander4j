@@ -36,8 +36,12 @@ public class SimpleLinkedList<E> implements SimpleListInterface<E> {
     @Override
     @SuppressWarnings("unchecked")
     public void add(E value) {
+        addLast(value);
+    }
+
+    public void addLast(E item) {
         Node oldlast = last;
-        Node newNode = new Node(oldlast, value, null);
+        Node newNode = new Node(oldlast, item, null);
         last = newNode;
         if (oldlast == null) {
             first = newNode;
@@ -46,6 +50,51 @@ public class SimpleLinkedList<E> implements SimpleListInterface<E> {
         }
         size++;
         modCount++;
+    }
+
+    public void addFirst(E value) {
+        Node oldfirst = first;
+        Node newNode = new Node(null, value, oldfirst);
+        first = newNode;
+        if (oldfirst == null) {
+            last = newNode;
+        } else {
+            oldfirst.prev = newNode;
+        }
+        size++;
+        modCount++;
+    }
+
+    public E removeFirst() {
+        E element = first.element;
+        Node next = first.next;
+        first.element = null;
+        first.next = null;
+        first = next;
+        if (next == null) {
+            last = null;
+        } else {
+            next.prev = null;
+        }
+        size--;
+        modCount++;
+        return element;
+    }
+
+    public E removeLast() {
+        E element = last.element;
+        Node prev = last.prev;
+        last.element = null;
+        last.prev = null;
+        last = prev;
+        if (prev == null) {
+            first = null;
+        } else {
+            prev.next = null;
+        }
+        size--;
+        modCount++;
+        return element;
     }
 
     @Override
