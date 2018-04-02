@@ -25,6 +25,8 @@ public class SimpleArrayTest {
         for (String a: s) {
             strArr.add(a);
         }
+        assertThat(intArr.size(), is(10));
+        assertThat(strArr.size(), is(8));
     }
 
     @Test
@@ -45,6 +47,8 @@ public class SimpleArrayTest {
     public void whenDeleteThen() {
         Integer a = intArr.delete(5);
         String s = strArr.delete(2);
+        assertThat(intArr.size(), is(9));
+        assertThat(strArr.size(), is(7));
         assertThat(a, is(5));
         assertThat(s, is("C"));
         assertThat(intArr.toString(), is("SimpleArray{objects=[0, 1, 2, 3, 4, 6, 7, 8, 9, null]}"));

@@ -9,6 +9,10 @@ public class SimpleArray<T> implements Iterable<T> {
     private T[] objects;
     private int pos = -1;
 
+    public int size() {
+        return pos + 1;
+    }
+
     @SuppressWarnings(value = "unchecked")
     public SimpleArray(int capacity) {
         this.objects = (T[]) new Object[capacity];
