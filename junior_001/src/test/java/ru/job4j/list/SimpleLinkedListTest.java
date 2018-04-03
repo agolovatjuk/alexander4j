@@ -107,4 +107,18 @@ public class SimpleLinkedListTest {
         }
         assertThat(lst.size(), is(0));
     }
+
+    @Test
+    public void remove() {
+        SimpleLinkedList<Integer> lst = new SimpleLinkedList<>();
+        for (int i = 0; i < 10; i++) {
+            assertThat(lst.size(), is(i));
+            lst.add(i);
+        }
+        assertThat(lst.remove(0), is(true));
+        assertThat(lst.remove(0), is(false));
+        for (int i = 0; i < 9; i++) {
+            assertThat(lst.get(i), is(i + 1));
+        }
+    }
 }

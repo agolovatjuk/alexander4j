@@ -6,7 +6,7 @@ import java.util.Iterator;
 
 public class SimpleSet<T> implements Iterable<T> {
 
-    SimpleArray<T> container;
+    protected SimpleArray<T> container;
 
     public SimpleSet(int capacity) {
         container = new SimpleArray<>(capacity);
@@ -38,17 +38,11 @@ public class SimpleSet<T> implements Iterable<T> {
     }
 
     public boolean add(T object) {
-        Iterator it = this.iterator();
-        boolean result = true;
+        boolean result = false;
 
-        while (it.hasNext()) {
-            if (it.next().equals(object)) {
-                result = false;
-                break;
-            }
-        }
-        if (result) {
+        if (!contains(object)) {
             container.add(object);
+            result = true;
         }
         return result;
     }

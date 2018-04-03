@@ -97,6 +97,54 @@ public class SimpleLinkedList<E> implements SimpleListInterface<E> {
         return element;
     }
 
+    E unlink(Node x) {
+        E element = x.element;
+        Node prev = x.prev;
+        Node next = x.next;
+
+        if (prev == null) {
+            first = next;
+        } else {
+            prev.next = next;
+            x.prev = null;
+        }
+
+        if (next == null) {
+            last = prev;
+        } else {
+            next.prev = prev;
+            x.next = null;
+        }
+
+        x.element = null;
+        size--;
+        modCount++;
+        return element;
+    }
+
+    public boolean remove(E object) {
+        boolean result = false;
+
+        if (object == null) {
+            for (Node x = first; x != null; x = x.next) {
+                if (x.element == null) {
+                    unlink(x);
+                    result = true;
+                    break;
+                }
+            }
+        } else {
+            for (Node x = first; x != null; x = x.next) {
+                if (x.element.equals(object)) {
+                    unlink(x);
+                    result = true;
+                    break;
+                }
+            }
+        }
+        return result;
+    }
+
     @Override
     @SuppressWarnings("unchecked")
     public E get(int index) {

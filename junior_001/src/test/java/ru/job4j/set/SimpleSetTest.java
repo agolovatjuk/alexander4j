@@ -1,5 +1,6 @@
 package ru.job4j.set;
 
+import org.junit.Before;
 import org.junit.Test;
 
 import java.util.Iterator;
@@ -10,9 +11,18 @@ import static org.hamcrest.Matchers.is;
 
 public class SimpleSetTest {
 
+    SimpleSet<Integer> simpleset;
+
+    @Before
+    public void setUp() throws Exception {
+        simpleset = new SimpleSet<>();
+    }
+
     @Test
     public void add() {
-        SimpleSet<Integer> simpleset = new SimpleSet<>();
+
+        simpleset = new SimpleSet<>(10);
+
         boolean result = false;
 
         for (int i = 0; i < 5; i++) {
@@ -35,8 +45,6 @@ public class SimpleSetTest {
 
     @Test
     public void size() {
-        SimpleSet<Integer> simpleset = new SimpleSet<>(20);
-
         assertThat(simpleset.size(), is(0));
         assertThat(simpleset.isEmpty(), is(true));
 
@@ -47,8 +55,7 @@ public class SimpleSetTest {
 
     @Test
     public void remove() {
-        SimpleSet<Integer> simpleset = new SimpleSet<>();
-        for (int i = 0; i < 5; i++) {
+        for (int i = 0; i < 6; i++) {
             simpleset.add(i);
         }
         boolean result = simpleset.remove(4);
@@ -63,8 +70,6 @@ public class SimpleSetTest {
 
     @Test(expected = NoSuchElementException.class)
     public void iterator() {
-        SimpleSet<Integer> simpleset = new SimpleSet<>();
-
         for (int i = 0; i < 10; i++) {
             simpleset.add(i);
         }
