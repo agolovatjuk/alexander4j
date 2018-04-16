@@ -17,12 +17,11 @@ public class CycledList {
         Node turtle = first;
         boolean iscycled = false;
 
-        while (hare != null && hare.next != null) {
+        while (!iscycled && hare != null && hare.next != null) {
             hare = hare.next.next;
             turtle = turtle.next;
             if (hare == turtle) {
                 iscycled = true;
-                break;
             }
         }
         return iscycled;
