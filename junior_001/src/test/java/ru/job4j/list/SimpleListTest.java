@@ -35,7 +35,13 @@ public class SimpleListTest {
 
         for (int i = 0; i < lst.size(); i++) {
             assertThat(lst.get(i), is(String.format("String%s", i)));
+            assertThat(lst.contains(String.format("String%s", i)), is(true));
         }
+        assertThat(lst.indexOf(null), is(-1));
+        assertThat(lst.contains(10), is(false));
+        lst.add(null);
+        assertThat(lst.contains(null), is(true));
+
     }
 
     @Test(expected = NoSuchElementException.class)

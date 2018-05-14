@@ -19,6 +19,27 @@ public class SimpleList<E> implements SimpleListInterface<E> {
         this.container = new Object[capacity];
     }
 
+    public boolean contains(Object o) {
+        return indexOf(o) >= 0;
+    }
+
+    public int indexOf(Object o) {
+        if (o == null) {
+            for (int i = 0; i < this.size; i++) {
+                if (this.container[i] == null) {
+                    return i;
+                }
+            }
+        } else {
+            for (int i = 0; i < this.size; i++) {
+                if (this.container[i].equals(o)) {
+                    return i;
+                }
+            }
+        }
+        return -1;
+    }
+
     @Override
     public void add(E value) {
         if (container.length == size) {
