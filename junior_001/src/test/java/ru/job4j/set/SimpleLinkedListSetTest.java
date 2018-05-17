@@ -38,17 +38,11 @@ public class SimpleLinkedListSetTest {
         }
         assertThat(lst.size(), is(5));
 
-        result = lst.add(1);
-        assertThat(result, is(false));
+        assertThat(lst.add(1), is(false));
         assertThat(lst.size(), is(5));
 
-        result = lst.add(10);
-        assertThat(result, is(true));
+        assertThat(lst.add(10), is(true));
         assertThat(lst.size(), is(6));
-
-        assertThat(lst.contains(10), is(true));
-        assertThat(lst.contains(50), is(false));
-
     }
 
     @Test
@@ -56,14 +50,8 @@ public class SimpleLinkedListSetTest {
         for (int i = 0; i < 5; i++) {
             lst.add(i);
         }
-        boolean result = lst.remove(4);
-        assertThat(result, is(true));
-        for (int i = 0; i < 4; i++) {
-            assertThat(lst.contains(i), is(true));
-        }
-
-        result = lst.remove(55);
-        assertThat(result, is(false));
+        assertThat(lst.remove(4), is(true));
+        assertThat(lst.remove(55), is(false));
     }
 
     @Test(expected = NoSuchElementException.class)

@@ -22,6 +22,12 @@ public class SimpleLinkedListTest {
         assertThat(lst.get(4), is("4"));
         assertThat(lst.get(15), is("15"));
         assertThat(lst.get(19), is("19"));
+        assertThat(lst.indexOf("19"), is(19));
+        assertThat(lst.indexOf(100), is(-1));
+        assertThat(lst.contains(1), is(false));
+        assertThat(lst.contains(null), is(false));
+        lst.add(null);
+        assertThat(lst.contains(null), is(true));
     }
 
     @Test(expected = NoSuchElementException.class)

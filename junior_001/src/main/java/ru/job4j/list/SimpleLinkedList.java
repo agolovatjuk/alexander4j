@@ -30,6 +30,29 @@ public class SimpleLinkedList<E> implements SimpleListInterface<E> {
         return size;
     }
 
+    public boolean contains(Object value) {
+        return indexOf(value) != -1;
+    }
+
+    public int indexOf(Object value) {
+        int index = 0;
+
+        if (value == null) {
+            for (Node x = first;  x != null; x = x.next, index++) {
+                if (x.element == null) {
+                    return index;
+                }
+            }
+        } else {
+            for (Node x = first; x != null; x = x.next, index++) {
+                if (x.element.equals(value)) {
+                    return index;
+                }
+            }
+        }
+        return -1;
+    }
+
     /**
      *  add value as last element
      */

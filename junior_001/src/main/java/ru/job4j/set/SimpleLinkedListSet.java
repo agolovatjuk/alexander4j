@@ -19,23 +19,10 @@ public class SimpleLinkedListSet<T> implements Iterable<T> {
         return size() == 0;
     }
 
-    public boolean contains(T object) {
-        Iterator<T> it = iterator();
-        boolean result = false;
-
-        while (it.hasNext()) {
-            if (it.next().equals(object)) {
-                result = true;
-                break;
-            }
-        }
-        return result;
-    }
-
     public boolean add(T object) {
         boolean result = false;
 
-        if (!contains(object)) {
+        if (!container.contains(object)) {
             result = true;
             container.add(object);
         }
@@ -45,7 +32,7 @@ public class SimpleLinkedListSet<T> implements Iterable<T> {
     public boolean remove(T object) {
         boolean result = false;
 
-        if (contains(object)) {
+        if (container.contains(object)) {
             container.remove(object);
             result = true;
         }
