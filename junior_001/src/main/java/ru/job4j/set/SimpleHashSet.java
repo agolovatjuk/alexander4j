@@ -9,8 +9,7 @@ import ru.job4j.list.SimpleLinkedList;
  */
 public class SimpleHashSet<T> {
 
-    private int sizeOfContainer = 703; // default
-//    private int sizeOfContainer = 3;
+    private int sizeOfContainer = 701;
 
     private double loadFactor = .75;
     private SimpleLinkedList<T>[] container;
@@ -26,6 +25,10 @@ public class SimpleHashSet<T> {
 
     public void add(T item) {
 
+        if (this.contains(item)) {
+            return;
+        }
+
         if ((double) count / (double) this.container.length > loadFactor) {
             this.resize((int) (count / loadFactor));
         }
@@ -33,14 +36,11 @@ public class SimpleHashSet<T> {
         int h = getIndex(item);
 
         if (this.container[h] == null) {
-            SimpleLinkedList<T> lst = new SimpleLinkedList<>();
-            lst.addFirst(item);
-            this.container[h] = lst;
-            count++;
-        } else if (!this.container[h].contains(item)) {
-                this.container[h].addFirst(item);
-                count++;
+            this.container[h] = new SimpleLinkedList<>();
         }
+
+        this.container[h].addFirst(item);
+        count++;
     }
 
     public boolean contains(T item) {
