@@ -27,3 +27,21 @@ class UserWithHashCode extends User {
         return this.name.hashCode();
     }
 }
+
+class UserWithEquals extends User {
+
+    UserWithEquals(String name, int children, int[] bd) {
+        super(name, children, bd);
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        UserWithEquals u = (UserWithEquals) obj;
+        return this.name.equals(u.name);
+    }
+
+    @Override
+    public int hashCode() {
+        return super.hashCode();
+    }
+}

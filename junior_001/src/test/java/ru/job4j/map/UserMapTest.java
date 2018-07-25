@@ -30,5 +30,18 @@ public class UserMapTest {
         usermap.put(second, "boss");
         System.out.println(usermap);
         assertThat(usermap.size(), is(2));
+        assertThat(first.hashCode(), is(second.hashCode()));
+    }
+
+    @Test
+    public void whenMapUserWithEquals() {
+        Map<UserWithEquals, String> usermap = new HashMap<>();
+        UserWithEquals first = new UserWithEquals("Mr Smith", 4, new int[] {1990, 11, 24});
+        UserWithEquals second = new UserWithEquals("Mr Smith", 4, new int[] {1990, 11, 24});
+        usermap.put(first, "citizen");
+        usermap.put(second, "citizen");
+        System.out.println(usermap);
+        assertThat(usermap.size(), is(2));
+        assertThat(first.equals(second), is(true));
     }
 }
