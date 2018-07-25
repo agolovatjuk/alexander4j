@@ -15,3 +15,15 @@ public class User {
         this.birthday = new GregorianCalendar(bd[0], bd[1] - 1, bd[2]);
     }
 }
+
+class UserWithHashCode extends User {
+
+    UserWithHashCode(String name, int children, int[] bd) {
+        super(name, children, bd);
+    }
+
+    @Override
+    public int hashCode() {
+        return this.name.hashCode();
+    }
+}
