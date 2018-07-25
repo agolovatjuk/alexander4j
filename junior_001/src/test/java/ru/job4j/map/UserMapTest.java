@@ -44,4 +44,15 @@ public class UserMapTest {
         assertThat(usermap.size(), is(2));
         assertThat(first.equals(second), is(true));
     }
+
+    @Test
+    public void whenMapUserOK() {
+        Map<UserOK, String> usermap = new HashMap<>();
+        UserOK first = new UserOK("Robert", 1, new int[] {1900, 01, 22});
+        UserOK second = new UserOK("Robert", 3, new int[] {2000, 05, 10});
+        usermap.put(first, "User_first");
+        usermap.put(second, "User_second");
+        System.out.println(usermap);
+        assertThat(usermap.size(), is(1));
+    }
 }

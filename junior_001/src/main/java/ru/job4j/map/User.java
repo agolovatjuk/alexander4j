@@ -45,3 +45,21 @@ class UserWithEquals extends User {
         return super.hashCode();
     }
 }
+
+class UserOK extends User {
+
+    UserOK(String name, int children, int[] bd) {
+        super(name, children, bd);
+    }
+
+    @Override
+    public int hashCode() {
+        return this.name.hashCode();
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        UserOK user = (UserOK) obj;
+        return this.name.equals(user.name);
+    }
+}
