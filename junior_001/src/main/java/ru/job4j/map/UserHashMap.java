@@ -73,11 +73,11 @@ public class UserHashMap<K, V> {
 
     public V get(K key) {
         if (table[hash(key)] != null) {
-            Node node = table[hash(key)];
+            Node<K, V> node = table[hash(key)];
             while (node.next != null && !node.key.equals(key)) {
                 node = node.next;
             }
-            return node.key.equals(key) ? (V) node.value : null;
+            return node.key.equals(key) ? node.value : null;
         }
         return null;
     }
@@ -134,10 +134,10 @@ public class UserHashMap<K, V> {
     }
 
     private void populateUserHashMap(UserHashMap<K, V> tmpHashMap) {
-        Iterator it = getItemIterator();
+        Iterator<Node<K, V>> it = getItemIterator();
         Node<K, V> n;
         while (it.hasNext()) {
-            n = (Node<K, V>) it.next();
+            n = it.next();
             tmpHashMap.put(n.key, n.value);
         }
         this.table = tmpHashMap.table;
@@ -149,7 +149,7 @@ public class UserHashMap<K, V> {
         return new KeyIterator();
     }
 
-    public Iterator<Node> getItemIterator() {
+    public Iterator<Node<K, V>> getItemIterator() {
         return new ItemIterator();
     }
 
@@ -198,9 +198,9 @@ public class UserHashMap<K, V> {
         }
     }
 
-    public final class ItemIterator extends MyHashIterator implements Iterator<Node> {
+    public final class ItemIterator extends MyHashIterator implements Iterator<Node<K, V>> {
         @Override
-        public Node next() {
+        public Node<K, V> next() {
             return nextNode();
         }
     }

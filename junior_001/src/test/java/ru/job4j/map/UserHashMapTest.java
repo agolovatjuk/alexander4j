@@ -96,10 +96,10 @@ public class UserHashMapTest {
             String value = k.substring(3);
             assertThat(map.get(k), is("Data" + value));
         }
-        Iterator<UserHashMap.Node> ititems = map.getItemIterator();
+        Iterator<UserHashMap.Node<String, String>> ititems = map.getItemIterator();
         while (ititems.hasNext()) {
             UserHashMap.Node<String, String> node = ititems.next();
-            assertThat(map.get((String) node.key), is(node.value));
+            assertThat(map.get(node.key), is(node.value));
             assertThat(node.toString(), is(node.key + ", " + node.value));
         }
     }
