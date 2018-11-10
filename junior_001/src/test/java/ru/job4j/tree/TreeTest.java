@@ -128,4 +128,18 @@ public class TreeTest {
         tree.add('C', 'E');
         iterator.next();
     }
+
+    @Test
+    public void isBinary() {
+        Tree<Character> tree = new Tree<Character>('A');
+        tree.add('A', 'B');
+        tree.add('A', 'C');
+        tree.add('B', 'E');
+        tree.add('B', 'D');
+        tree.add('D', 'G');
+        tree.add('D', 'H');
+        assertThat(tree.isBinary(), is(true));
+        tree.add('A', 'X');
+        assertThat(tree.isBinary(), is(false));
+    }
 }

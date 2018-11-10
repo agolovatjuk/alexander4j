@@ -25,6 +25,17 @@ public class Tree<E extends Comparable<E>> implements SimpleTree<E> {
         return this.size;
     }
 
+    public boolean isBinary() {
+        Iterator<Node<E>> iterator = this.iterator();
+        while (iterator.hasNext()) {
+            Node<E> node = iterator.next();
+            if (node.leaves().size() > 2) {
+                return false;
+            }
+        }
+        return true;
+    }
+
     @Override
     public boolean add(E parent, E child) {
         boolean result = false;
