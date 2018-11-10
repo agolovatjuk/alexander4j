@@ -104,6 +104,7 @@ public class TreeTest {
         assertThat(iterator.next().eqValue(11), is(true));
         assertThat(iterator.next().eqValue(20), is(true));
         assertThat(iterator.next().eqValue(21), is(true));
+        assertThat(iterator.hasNext(), is(false));
     }
 
 

@@ -103,44 +103,23 @@ public class Tree<E extends Comparable<E>> implements SimpleTree<E> {
     private class TreeIterator implements Iterator<Node<E>> {
 
         Queue<Node<E>> data = new LinkedList<>();
-        Iterator<Node<E>> iterator;
         int expectedModCount = modCount;
 
         private TreeIterator() {
-            Queue<Node<E>> tmpdata = new LinkedList<>();
-            tmpdata.offer(root);
-            while (!tmpdata.isEmpty()) {
-                Node<E> el = tmpdata.poll();
-                data.offer(el);
-                for (Node<E> node: el.leaves()) {
-                    tmpdata.offer(node);
-                }
-            }
-            iterator = data.iterator();
+            data.offer(root);
         }
 
         private TreeIterator(E value) {
             Optional<Node<E>> node = findBy(value);
             if (node.isPresent()) {
-                Queue<Node<E>> tmpdata = new LinkedList<>();
-                tmpdata.offer(node.get());
-                while (!tmpdata.isEmpty()) {
-                    Node<E> el = tmpdata.poll();
-                    data.offer(el);
-                    for (Node<E> child: el.leaves()) {
-                        tmpdata.offer(child);
-                    }
-                }
+                data.offer(node.get());
             }
-            iterator = data.iterator();
         }
 
-        @Override
         public boolean hasNext() {
-            return iterator.hasNext();
+            return !data.isEmpty();
         }
 
-        @Override
         public Node<E> next() {
             if (!hasNext()) {
                 throw new NoSuchElementException();
@@ -148,7 +127,9 @@ public class Tree<E extends Comparable<E>> implements SimpleTree<E> {
             if (expectedModCount != modCount) {
                 throw new ConcurrentModificationException();
             }
-            return iterator.next();
+            Node<E> element = data.poll();
+            data.addAll(element.leaves());
+            return element;
         }
     }
 }
