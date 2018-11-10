@@ -96,6 +96,10 @@ public class Tree<E extends Comparable<E>> implements SimpleTree<E> {
         return new TreeIterator();
     }
 
+    public Iterator<Node<E>> iterator(E value) {
+        return new TreeIterator(value);
+    }
+
     private class TreeIterator implements Iterator<Node<E>> {
 
         Queue<Node<E>> data = new LinkedList<>();
@@ -110,6 +114,22 @@ public class Tree<E extends Comparable<E>> implements SimpleTree<E> {
                 data.offer(el);
                 for (Node<E> node: el.leaves()) {
                     tmpdata.offer(node);
+                }
+            }
+            iterator = data.iterator();
+        }
+
+        private TreeIterator(E value) {
+            Optional<Node<E>> node = findBy(value);
+            if (node.isPresent()) {
+                Queue<Node<E>> tmpdata = new LinkedList<>();
+                tmpdata.offer(node.get());
+                while (!tmpdata.isEmpty()) {
+                    Node<E> el = tmpdata.poll();
+                    data.offer(el);
+                    for (Node<E> child: el.leaves()) {
+                        tmpdata.offer(child);
+                    }
                 }
             }
             iterator = data.iterator();

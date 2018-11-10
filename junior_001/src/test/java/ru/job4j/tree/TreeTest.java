@@ -106,6 +106,42 @@ public class TreeTest {
         assertThat(iterator.next().eqValue(21), is(true));
     }
 
+
+    @Test
+    public void whenIteratorNodeThen() {
+        Tree<Integer> tree = new Tree<>(0);
+        Iterator<Node<Integer>> iterator;
+        tree.add(0, 1);
+        tree.add(1, 10);
+        tree.add(1, 11);
+        tree.add(0, 2);
+        tree.add(2, 20);
+        tree.add(2, 21);
+        assertThat(tree.add(2, 10), is(false));
+        iterator = tree.iterator(0);
+        assertThat(iterator.next().eqValue(0), is(true));
+        assertThat(iterator.next().eqValue(1), is(true));
+        assertThat(iterator.next().eqValue(2), is(true));
+        assertThat(iterator.next().eqValue(10), is(true));
+        assertThat(iterator.next().eqValue(11), is(true));
+        assertThat(iterator.next().eqValue(20), is(true));
+        assertThat(iterator.next().eqValue(21), is(true));
+        assertThat(iterator.hasNext(), is(false));
+        iterator = tree.iterator(1);
+        assertThat(iterator.next().eqValue(1), is(true));
+        assertThat(iterator.next().eqValue(10), is(true));
+        assertThat(iterator.next().eqValue(11), is(true));
+        assertThat(iterator.hasNext(), is(false));
+        iterator = tree.iterator(2);
+        assertThat(iterator.next().eqValue(2), is(true));
+        assertThat(iterator.next().eqValue(20), is(true));
+        assertThat(iterator.next().eqValue(21), is(true));
+        assertThat(iterator.hasNext(), is(false));
+
+        iterator = tree.iterator(99); // empty iterator
+        assertThat(iterator.hasNext(), is(false));
+    }
+
     @Test(expected = NoSuchElementException.class)
     public void whenIteratorNotHasNextThen() {
         Tree<String> tree = new Tree<String>("");
