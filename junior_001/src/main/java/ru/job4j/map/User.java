@@ -36,6 +36,12 @@ class UserWithEquals extends User {
 
     @Override
     public boolean equals(Object obj) {
+        if (obj == this) {
+            return true;
+        }
+        if (!(obj instanceof UserWithEquals)) {
+            return false;
+        }
         UserWithEquals u = (UserWithEquals) obj;
         return this.name.equals(u.name);
     }
@@ -59,6 +65,12 @@ class UserOK extends User {
 
     @Override
     public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (!(obj instanceof UserOK)) {
+            return false;
+        }
         UserOK user = (UserOK) obj;
         return this.name.equals(user.name);
     }
