@@ -1,25 +1,23 @@
 package ru.job4j.store;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
 
 class Info {
 
-    HashMap<Integer, String> prev, curr;
-    HashMap<String, Integer> report;
+    Map<Integer, String> prevMap, currMap;
+    Map<String, Integer> report;
 
     protected Info(List<Store.User> previous, List<Store.User> current) {
-        prev = new HashMap<>();
-        curr = new HashMap<>();
+        prevMap = new HashMap<>();
+        currMap = new HashMap<>();
         report = new HashMap<>();
-        // TODO lambda how to
-        for (Store.User user : current) {
-            curr.put(user.id, user.name);
-        }
-        for (Store.User user : previous) {
-            prev.put(user.id, user.name);
-        }
+
+        current.forEach(x -> currMap.put(x.id, x.name));
+        previous.forEach(x -> prevMap.put(x.id, x.name));
+
         calculateDifference();
     }
 
@@ -29,17 +27,17 @@ class Info {
         int cntDeleted = 0;
         HashSet<Integer> totalKeys = new HashSet<>();
 
-        totalKeys.addAll(prev.keySet());
-        totalKeys.addAll(curr.keySet());
+        totalKeys.addAll(prevMap.keySet());
+        totalKeys.addAll(currMap.keySet());
 
         for (Integer key : totalKeys) {
-            if (prev.containsKey(key) & curr.containsKey(key)) {
-                if (!prev.get(key).equals(curr.get(key))) {
+            if (prevMap.containsKey(key) & currMap.containsKey(key)) {
+                if (!prevMap.get(key).equals(currMap.get(key))) {
                     cntEdited++;
                 }
-            } else if (prev.containsKey(key) & !curr.containsKey(key)) {
+            } else if (prevMap.containsKey(key) & !currMap.containsKey(key)) {
                 cntDeleted++;
-            } else if (!prev.containsKey(key) & curr.containsKey(key)) {
+            } else if (!prevMap.containsKey(key) & currMap.containsKey(key)) {
                 cntAdded++;
             }
         }
