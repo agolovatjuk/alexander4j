@@ -5,9 +5,9 @@ import java.util.List;
 import java.util.Map;
 
 class Info {
-    Map<String, Integer> report = new HashMap<>();
+    private Map<String, Integer> report = new HashMap<>();
 
-    protected Info(List<Store.User> previous, List<Store.User> current) {
+    public Info(List<Store.User> previous, List<Store.User> current) {
         int add = 0;
         int edit = 0;
         Map<Integer, String> mapPrevious = new HashMap<>();
@@ -27,5 +27,9 @@ class Info {
         report.put("Added", add);
         report.put("Changed", edit);
         report.put("Deleted", mapPrevious.size());
+    }
+
+    public Map<String, Integer> getReport() {
+        return report;
     }
 }

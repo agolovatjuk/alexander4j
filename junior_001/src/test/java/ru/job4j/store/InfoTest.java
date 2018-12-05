@@ -34,9 +34,9 @@ public class InfoTest {
     public void whenPreviousEqualCurrentThen() {
         // see setUp()
         info = new Store().diff(previous, current);
-        assertThat(info.report.get("Added"), is(0));
-        assertThat(info.report.get("Changed"), is(0));
-        assertThat(info.report.get("Deleted"), is(0));
+        assertThat(info.getReport().get("Added"), is(0));
+        assertThat(info.getReport().get("Changed"), is(0));
+        assertThat(info.getReport().get("Deleted"), is(0));
     }
 
     @Test
@@ -48,9 +48,9 @@ public class InfoTest {
             current.add(user);
         }
         info = new Store().diff(previous, current);
-        assertThat(info.report.get("Added"), is(4));
-        assertThat(info.report.get("Changed"), is(0));
-        assertThat(info.report.get("Deleted"), is(0));
+        assertThat(info.getReport().get("Added"), is(4));
+        assertThat(info.getReport().get("Changed"), is(0));
+        assertThat(info.getReport().get("Deleted"), is(0));
     }
 
     @Test
@@ -58,9 +58,9 @@ public class InfoTest {
         current.remove(4);
         current.remove(0);
         info = new Store().diff(previous, current);
-        assertThat(info.report.get("Added"), is(0));
-        assertThat(info.report.get("Changed"), is(0));
-        assertThat(info.report.get("Deleted"), is(2));
+        assertThat(info.getReport().get("Added"), is(0));
+        assertThat(info.getReport().get("Changed"), is(0));
+        assertThat(info.getReport().get("Deleted"), is(2));
     }
 
     @Test
@@ -68,17 +68,17 @@ public class InfoTest {
         current.get(2).name = "ChangeN 111";
         current.get(0).name = "ChangeN 222";
         info = new Store().diff(previous, current);
-        assertThat(info.report.get("Added"), is(0));
-        assertThat(info.report.get("Changed"), is(2));
-        assertThat(info.report.get("Deleted"), is(0));
+        assertThat(info.getReport().get("Added"), is(0));
+        assertThat(info.getReport().get("Changed"), is(2));
+        assertThat(info.getReport().get("Deleted"), is(0));
     }
 
     @Test
     public void whenInfoThen() {
         info = new Store().diff(previous, current);
-        assertThat(info.report.get("Added"), is(0));
-        assertThat(info.report.get("Changed"), is(0));
-        assertThat(info.report.get("Deleted"), is(0));
+        assertThat(info.getReport().get("Added"), is(0));
+        assertThat(info.getReport().get("Changed"), is(0));
+        assertThat(info.getReport().get("Deleted"), is(0));
 
         for (int i = 2; i <= 5; i++) { // added 4 Entries - 2, 3, 4, 5
             user = new Store.User();
@@ -88,24 +88,24 @@ public class InfoTest {
         }
 
         info = new Store().diff(previous, current);
-        assertThat(info.report.get("Added"), is(4));
-        assertThat(info.report.get("Changed"), is(0));
-        assertThat(info.report.get("Deleted"), is(0));
+        assertThat(info.getReport().get("Added"), is(4));
+        assertThat(info.getReport().get("Changed"), is(0));
+        assertThat(info.getReport().get("Deleted"), is(0));
 
         current.remove(1);
         current.remove(2);
 
         info = new Store().diff(previous, current);
-        assertThat(info.report.get("Added"), is(4));
-        assertThat(info.report.get("Changed"), is(0));
-        assertThat(info.report.get("Deleted"), is(2));
+        assertThat(info.getReport().get("Added"), is(4));
+        assertThat(info.getReport().get("Changed"), is(0));
+        assertThat(info.getReport().get("Deleted"), is(2));
 
         current.get(1).name = "Changed01 in current";
         current.get(2).name = "Changed02 in current";
 
         info = new Store().diff(previous, current);
-        assertThat(info.report.get("Added"), is(4));
-        assertThat(info.report.get("Changed"), is(2));
-        assertThat(info.report.get("Deleted"), is(2));
+        assertThat(info.getReport().get("Added"), is(4));
+        assertThat(info.getReport().get("Changed"), is(2));
+        assertThat(info.getReport().get("Deleted"), is(2));
     }
 }
