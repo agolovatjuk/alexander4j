@@ -4,7 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-class Info {
+public class Info {
     private Map<String, Integer> report = new HashMap<>();
 
     public Info(List<Store.User> previous, List<Store.User> current) {
