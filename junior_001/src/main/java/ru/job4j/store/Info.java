@@ -1,48 +1,31 @@
 package ru.job4j.store;
 
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 
 class Info {
-
-    Map<Integer, String> prevMap, currMap;
-    Map<String, Integer> report;
+    Map<String, Integer> report = new HashMap<>();
 
     protected Info(List<Store.User> previous, List<Store.User> current) {
-        prevMap = new HashMap<>();
-        currMap = new HashMap<>();
-        report = new HashMap<>();
+        int add = 0;
+        int edit = 0;
+        Map<Integer, String> mapPrevious = new HashMap<>();
 
-        current.forEach(x -> currMap.put(x.id, x.name));
-        previous.forEach(x -> prevMap.put(x.id, x.name));
+        previous.forEach(x -> mapPrevious.put(x.id, x.name));
 
-        calculateDifference();
-    }
-
-    private void calculateDifference() {
-        int cntAdded = 0;
-        int cntEdited = 0;
-        int cntDeleted = 0;
-        HashSet<Integer> totalKeys = new HashSet<>();
-
-        totalKeys.addAll(prevMap.keySet());
-        totalKeys.addAll(currMap.keySet());
-
-        for (Integer key : totalKeys) {
-            if (prevMap.containsKey(key) & currMap.containsKey(key)) {
-                if (!prevMap.get(key).equals(currMap.get(key))) {
-                    cntEdited++;
+        for (Store.User user : current) {
+            if (mapPrevious.containsKey(user.id)) {
+                if (!user.name.equals(mapPrevious.get(user.id))) {
+                    edit++;
                 }
-            } else if (prevMap.containsKey(key) & !currMap.containsKey(key)) {
-                cntDeleted++;
-            } else if (!prevMap.containsKey(key) & currMap.containsKey(key)) {
-                cntAdded++;
+                mapPrevious.remove(user.id);
+            } else {
+                add++;
             }
         }
-        report.put("Added", cntAdded);
-        report.put("Changed", cntEdited);
-        report.put("Deleted", cntDeleted);
+        report.put("Added", add);
+        report.put("Changed", edit);
+        report.put("Deleted", mapPrevious.size());
     }
 }
