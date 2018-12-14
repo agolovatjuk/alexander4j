@@ -1,13 +1,12 @@
 package ru.job4j.generic;
 
-import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 
 public class SimpleList<T> {
 
     T[] data;
-    int N = 0;
+    int size = 0;
 
     T paramNewClassT;
 
@@ -35,30 +34,30 @@ public class SimpleList<T> {
     }
 
     public void push(T item) {
-        data[N++] = item;
+        data[size++] = item;
     }
 
     public T pop() {
-        T tmp = data[--N];
-        data[N] = null;
+        T tmp = data[--size];
+        data[size] = null;
         return tmp;
     }
 
     public int size() {
-        return N;
+        return size;
     }
 
-    public static void main(String[] args) throws IllegalAccessException, ClassNotFoundException, InstantiationException {
-        Stack array = new Stack(10);
-        array.push("one");
-        array.push("two");
-    }
+//    public static void main(String[] args) throws IllegalAccessException, ClassNotFoundException, InstantiationException {
+//        Stack array = new Stack(10);
+//        array.push("one");
+//        array.push("two");
+//    }
 
 }
 
 class Stack extends SimpleList<String> {
 
-    public Stack(int n) throws InstantiationException, IllegalAccessException, ClassNotFoundException {
+    Stack(int n) throws InstantiationException, IllegalAccessException, ClassNotFoundException {
         super(n);
     }
 

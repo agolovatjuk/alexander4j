@@ -2,8 +2,6 @@ package ru.job4j.generic;
 
 import org.junit.Test;
 
-import java.math.BigInteger;
-import java.util.ArrayList;
 import java.util.Date;
 
 import static org.hamcrest.Matchers.is;
@@ -45,5 +43,22 @@ public class SimpleListTest {
 
     @Test
     public void size() {
+        class Stack extends SimpleList<String> {
+            Stack(int n) throws IllegalAccessException, ClassNotFoundException, InstantiationException {
+                super(10);
+            }
+        }
+        try {
+            Stack stringStack = new Stack(10);
+            stringStack.push("First");
+            assertThat(stringStack.size(), is(1));
+            stringStack.push("Second");
+            assertThat(stringStack.size(), is(2));
+            String result = stringStack.pop();
+            assertThat(result, is("Second"));
+            assertThat(stringStack.size(), is(1));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }
